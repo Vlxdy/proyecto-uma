@@ -1,0 +1,20 @@
+/nbproject/private/
+/nbproject/
+/build/
+/node_modules/
+konga.MD
+/configurations/**/*
+/public
+/keys/**/*
+/.vscode/**/*
+launch.json
+# Logs
+**/*.log
+**/*.log.gz
+npm-debug.log*
+
+# sqlite database
+*.sqlite
+
+# Optional REPL history
+.node_repl_history
