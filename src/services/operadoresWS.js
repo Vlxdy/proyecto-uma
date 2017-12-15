@@ -1,7 +1,7 @@
 const soap = require('soap');
 const logger = require('../helpers/logger.js');
 
-const opciones = {};
+const opciones = { returnFault: true, forceSoap12Headers: true };
 
 function logData(client) {
   if (client !== undefined) {
@@ -18,11 +18,14 @@ function logData(client) {
 }
 
 module.exports.operadorRepresentanteBotic = (datosConsumo, callback) => {
-  soap.createClient(datosConsumo.url, opciones, (err, client) => {
+  logger.info(`[${__filename}|operadorRepresentanteBotic] Consumiendo representantes legales`);
+  return soap.createClient(datosConsumo.url, opciones, (err, client) => {
     logData(client);
     if (err) {
       return callback(err);
     }
-    return client.OperadorRepresentanteBotic(datosConsumo.args, callback);
+    datosConsumo.header.Autenticacion.attributes = { xmlns: client.wsdl.definitions.$targetNamespace };
+    client.addSoapHeader(datosConsumo.header);
+    return client.OperadorRepresentanteBotic(datosConsumo.body, callback);
   });
 };

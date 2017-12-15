@@ -38,8 +38,7 @@
     "express": "^4.16.2",
     "helmet": "^3.8.2",
     "soap": "^0.23.0",
-    "winston": "^2.4.0",
-    "xml2json": "^0.11.0"
+    "winston": "^2.4.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",

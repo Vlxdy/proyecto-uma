@@ -1,12 +1,19 @@
-const xml2jsonParser = require('xml2json');
-
-function convertirXmlAJson(xml) {
-  return JSON.parse(xml2jsonParser.toJson(xml, {
-    arrayNotation: [''],
-  }));
-}
-
-module.exports.obtenerRespuesta = (datos) => {
-  const datosEnJson = convertirXmlAJson(datos);
-  return JSON.parse(datosEnJson.string.$t);
+module.exports.obtenerRespuesta = (result) => {
+  const representantes = [];
+  const valores = result.OperadorRepresentanteBoticResult.diffgram.DocumentElement;
+  let elementos = [];
+  if (valores.dtTmp instanceof Array) {
+    elementos = valores.dtTmp;
+  } else {
+    elementos.push(valores.dtTmp);
+  }
+  elementos.forEach((elemento) => {
+    const representante = {};
+    representante.estado = elemento.estado;
+    representante.tipo = elemento.tipo;
+    representante.numero = elemento.numero;
+    representante.estadoOperador = elemento.estadoOperador;
+    representantes.push(representante);
+  });
+  return representantes;
 };

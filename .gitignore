@@ -12,6 +12,7 @@ launch.json
 **/*.log
 **/*.log.gz
 npm-debug.log*
+src/configurations/services.js
 
 # sqlite database
 *.sqlite

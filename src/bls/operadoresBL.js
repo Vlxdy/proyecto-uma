@@ -8,9 +8,11 @@ module.exports = (app) => {
 
   function ParametrosWS() {
     this.body = {};
-    this.header = {};
-    this.header.Autenticacion.UsuarioClave = servicesConfig.usuarioClave;
-    this.header.Autenticacion.UsuarioNombre = servicesConfig.usuarioNombre;
+    this.header = {
+      Autenticacion: {},
+    };
+    this.header.Autenticacion.UsuarioNombre = servicesConfig.usuario;
+    this.header.Autenticacion.UsuarioClave = servicesConfig.clave;
     this.url = servicesConfig.wsdl;
   }
 
@@ -35,16 +37,16 @@ module.exports = (app) => {
     return parametrosWS;
   };
 
-  const obtenerRepresentantesLegales = (parametrosValidados) => {
+  const obtenerRepresentantesLegales = (parametrosValidados, callback) => {
     logger.info(`[${__filename}|obtenerRepresentantesLegales] Parametros enviados`, parametrosValidados);
     return operadoresWS.operadorRepresentanteBotic(parametrosValidados, (err, result) => {
       if (err) {
         logger.error(`[${__filename}|obtenerRepresentantesLegales] Error al consumir el servicio de operadores`, err);
-        return { error: 'Error al consumir el servicio' };
+        return callback({ error: 'Error al consumir el servicio' });
       }
       const respuesta = parser.obtenerRespuesta(result);
       logger.debug(`[${__filename}|obtenerRepresentantesLegales] Consumo exitoso`, respuesta);
-      return respuesta;
+      return callback(err, respuesta);
     });
   };
 

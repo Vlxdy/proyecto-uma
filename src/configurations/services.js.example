@@ -1,0 +1,5 @@
+module.exports = {
+  usuario: 'nombreUsuario',
+  clave: 'passwod',
+  wsdl: 'http://dominio.entidad/servicio',
+};
