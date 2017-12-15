@@ -1,8 +1,8 @@
+/* eslint no-undef: 0 */
 const configurations = app.configurations.config;
 const propiedades = require('../../package.json');
 
 describe('Ruta de estado del servicio', () => {
-
   describe('Estado del servicio', () => {
     it('Debe devolver la ruta del servicio', (done) => {
       request.get(`${configurations.app.baseUrl}/v${propiedades.datosServicio.version}/estado`)
