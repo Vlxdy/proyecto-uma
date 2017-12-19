@@ -42,7 +42,7 @@ module.exports = (app) => {
     return operadoresWS.operadorRepresentanteBotic(parametrosValidados, (err, result) => {
       if (err) {
         logger.error(`[${__filename}|obtenerRepresentantesLegales] Error al consumir el servicio de operadores`, err);
-        return callback({ error: 'Error al consumir el servicio' });
+        return callback({ mensaje: 'Error al consumir el servicio' });
       }
       const respuesta = parser.obtenerRespuesta(result);
       logger.debug(`[${__filename}|obtenerRepresentantesLegales] Consumo exitoso`, respuesta);

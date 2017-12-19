@@ -4,7 +4,7 @@ const propiedades = require('../../package.json');
 
 describe('Ruta de estado del servicio', () => {
   describe('Estado del servicio', () => {
-    it('Debe devolver la ruta del servicio', (done) => {
+    it('Debe devolver la ruta del estado del servicio', (done) => {
       request.get(`${configurations.app.baseUrl}/v${propiedades.datosServicio.version}/estado`)
         .set('Accept', 'application/json')
         .expect(200)
@@ -17,7 +17,7 @@ describe('Ruta de estado del servicio', () => {
         });
     });
 
-    it('Debe devolver la versión del desplegada', (done) => {
+    it('Debe devolver la versión del servicio desplegada', (done) => {
       request.get(`${configurations.app.baseUrl}/v${propiedades.datosServicio.version}/despliegue`)
         .set('Accept', 'application/json')
         .expect(200)
