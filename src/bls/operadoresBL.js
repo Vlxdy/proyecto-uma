@@ -37,6 +37,36 @@ module.exports = (app) => {
     return parametrosWS;
   };
 
+  const validarParametrosOperadorPermisos = (params, query) => {
+    const parametrosWS = new ParametrosWS();
+    if (!params.hasOwnProperty('documentoIdoneidad')) {
+      throw new CodeError('El parámetro "documentoIdoneidad" es necesario');
+    }
+    parametrosWS.body.vNumeroIdoneidad = params.documentoIdoneidad;
+    if (!query.hasOwnProperty('pais')) {
+      throw new CodeError('El parámetro "pais" es necesario');
+    }
+    if (/^[0-9]*$/.test(query.pais)) {
+      parametrosWS.body.vPaisID = query.pais;
+    } else {
+      throw new CodeError('El parámetro "pais" solamente puede contener números');
+    }
+    return parametrosWS;
+  };
+
+  const validarParametrosOperadorTramites = (params) => {
+    const parametrosWS = new ParametrosWS();
+    if (!params.hasOwnProperty('codigoIdentificacion')) {
+      throw new CodeError('El parámetro "codigoIdentificacion" es necesario');
+    }
+    if (/^\d+\/\d+$/.test(params.codigoIdentificacion)) {
+      parametrosWS.body.vCodigoItentificacion = params.codigoIdentificacion;
+    } else {
+      throw new CodeError('El parámetro "codigoIdentificacion" solamente puede contener números seguidos de un "/" seguido de números');
+    }
+    return parametrosWS;
+  };
+
   const obtenerRepresentantesLegales = (parametrosValidados, callback) => {
     logger.info(`[${__filename}|obtenerRepresentantesLegales] Parametros enviados`, parametrosValidados);
     return operadoresWS.operadorRepresentanteBotic(parametrosValidados, (err, result) => {
@@ -50,8 +80,52 @@ module.exports = (app) => {
     });
   };
 
+  const obtenerCapacidadCarga = (parametrosValidados, callback) => {
+    logger.info(`[${__filename}|obtenerCapacidadCarga] Parametros enviados`, parametrosValidados);
+    return operadoresWS.operadorCapacidadCarga(parametrosValidados, (err, result) => {
+      if (err) {
+        logger.error(`[${__filename}|obtenerCapacidadCarga] Error al consumir el servicio de operadores`, err);
+        return callback({ mensaje: 'Error al consumir el servicio' });
+      }
+      const respuesta = parser.obtenerRespuestaCapacidadCarga(result);
+      logger.debug(`[${__filename}|obtenerCapacidadCarga] Consumo exitoso`, respuesta);
+      return callback(err, respuesta);
+    });
+  };
+
+  const obtenerPermisosComplementarios = (parametrosValidados, callback) => {
+    logger.info(`[${__filename}|obtenerPermisosComplementarios] Parametros enviados`, parametrosValidados);
+    return operadoresWS.operadorPermisosComplementarios(parametrosValidados, (err, result) => {
+      if (err) {
+        logger.error(`[${__filename}|obtenerPermisosComplementarios] Error al consumir el servicio de operadores`, err);
+        return callback({ mensaje: 'Error al consumir el servicio' });
+      }
+      const respuesta = parser.obtenerRespuestaPermisosComplementarios(result);
+      logger.debug(`[${__filename}|obtenerPermisosComplementarios] Consumo exitoso`, respuesta);
+      return callback(err, respuesta);
+    });
+  };
+
+  const obtenerTramitePermisosComplementarios = (parametrosValidados, callback) => {
+    logger.info(`[${__filename}|obtenerTramitePermisosComplementarios] Parametros enviados`, parametrosValidados);
+    return operadoresWS.verificacionLlenadoTRE(parametrosValidados, (err, result) => {
+      if (err) {
+        logger.error(`[${__filename}|obtenerTramitePermisosComplementarios] Error al consumir el servicio de operadores`, err);
+        return callback({ mensaje: 'Error al consumir el servicio' });
+      }
+      const respuesta = parser.obtenerRespuestaTramitePermisos(result);
+      logger.debug(`[${__filename}|obtenerTramitePermisosComplementarios] Consumo exitoso`, respuesta);
+      return callback(err, respuesta);
+    });
+  };
+
   return {
     validarParametrosOperador,
+    validarParametrosOperadorPermisos,
+    validarParametrosOperadorTramites,
     obtenerRepresentantesLegales,
+    obtenerCapacidadCarga,
+    obtenerPermisosComplementarios,
+    obtenerTramitePermisosComplementarios,
   };
 };

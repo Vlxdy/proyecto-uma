@@ -18,7 +18,7 @@ function logData(client) {
 }
 
 module.exports.operadorRepresentanteBotic = (datosConsumo, callback) => {
-  logger.info(`[${__filename}|operadorRepresentanteBotic] Consumiendo representantes legales`);
+  logger.info(`[${__filename}|operadorRepresentanteBotic] Consumiendo método de representantes legales de un operador de transporte...`);
   return soap.createClient(datosConsumo.url, opciones, (err, client) => {
     logData(client);
     if (err) {
@@ -27,5 +27,44 @@ module.exports.operadorRepresentanteBotic = (datosConsumo, callback) => {
     datosConsumo.header.Autenticacion.attributes = { xmlns: client.wsdl.definitions.$targetNamespace };
     client.addSoapHeader(datosConsumo.header);
     return client.OperadorRepresentanteBotic(datosConsumo.body, callback);
+  });
+};
+
+module.exports.operadorCapacidadCarga = (datosConsumo, callback) => {
+  logger.info(`[${__filename}|operadorCapacidadCarga] Consumiendo método de capacidad de carga de un operador de transporte...`);
+  return soap.createClient(datosConsumo.url, opciones, (err, client) => {
+    logData(client);
+    if (err) {
+      return callback(err);
+    }
+    datosConsumo.header.Autenticacion.attributes = { xmlns: client.wsdl.definitions.$targetNamespace };
+    client.addSoapHeader(datosConsumo.header);
+    return client.OperadorCapacidadCarga(datosConsumo.body, callback);
+  });
+};
+
+module.exports.operadorPermisosComplementarios = (datosConsumo, callback) => {
+  logger.info(`[${__filename}|operadorPermisosComplementarios] Consumiendo método de permisos complementarios de un operador de transporte...`);
+  return soap.createClient(datosConsumo.url, opciones, (err, client) => {
+    logData(client);
+    if (err) {
+      return callback(err);
+    }
+    datosConsumo.header.Autenticacion.attributes = { xmlns: client.wsdl.definitions.$targetNamespace };
+    client.addSoapHeader(datosConsumo.header);
+    return client.OperadorPermisosComplementarios(datosConsumo.body, callback);
+  });
+};
+
+module.exports.verificacionLlenadoTRE = (datosConsumo, callback) => {
+  logger.info(`[${__filename}|verificacionLlenadoTRE] Consumiendo método de trámites de permisos complementarios de un operador de transporte...`);
+  return soap.createClient(datosConsumo.url, opciones, (err, client) => {
+    logData(client);
+    if (err) {
+      return callback(err);
+    }
+    datosConsumo.header.Autenticacion.attributes = { xmlns: client.wsdl.definitions.$targetNamespace };
+    client.addSoapHeader(datosConsumo.header);
+    return client.VerificacionLlenadoTRE(datosConsumo.body, callback);
   });
 };
