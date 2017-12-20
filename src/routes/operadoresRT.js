@@ -123,7 +123,7 @@ module.exports = (app) => {
    *
    * @apiSuccess {Object[]} . Array que contiene la respuesta del servicio.
    * @apiSuccess {String} .estado OK si existe el operador o ERR si no existe.
-   * @apiSuccess {String} .numeroRegistro Número de BOTIC del operador de transporte asignado por el VMT.
+   * @apiSuccess {String} .numeroRegistro Número de BOTIC del operador de transporte asignado por el VMT, 0 en caso de error.
    * @apiSuccess {String} .razonSocial Razón social del operador de transporte.
    * @apiSuccess {String} .representanteLegalCI Número de cédula de identidad del representante legal.
    *
