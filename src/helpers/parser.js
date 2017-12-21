@@ -97,3 +97,118 @@ module.exports.obtenerRespuestaTramitePermisos = (result) => {
   });
   return tramites;
 };
+
+module.exports.obtenerRespuestaVehiculosVigentes = (result) => {
+  const vehiculos = [];
+  const valores = result.VehiculoVigentesResult.diffgram.DocumentElement;
+  let elementos = [];
+  if (valores.dtTmp instanceof Array) {
+    elementos = valores.dtTmp;
+  } else {
+    const vehiculo = {};
+    vehiculo.estado = valores.dtTmp.estado;
+    vehiculo.tipoTarjeta = valores.dtTmp.tipoTarjeta;
+    vehiculo.nit = valores.dtTmp.nit;
+    vehiculo.numeroRegistro = valores.dtTmp.numeroRegistro;
+    vehiculo.color = valores.dtTmp.color;
+    vehiculo.marca = valores.dtTmp.marca;
+    vehiculo.modelo = valores.dtTmp.modelo;
+    vehiculo.chasis = valores.dtTmp.chasis;
+    vehiculo.capacidadCarga = valores.dtTmp.capacidadCarga;
+    vehiculo.tipoTransporte = valores.dtTmp.tipoTransporte;
+    vehiculo.tipoVehiculo = valores.dtTmp.tipoVehiculo;
+    vehiculo.fechaInicio = valores.dtTmp.fechaInicio;
+    vehiculo.fechaFin = valores.dtTmp.fechaFin;
+    return vehiculo;
+  }
+  elementos.forEach((elemento) => {
+    const vehiculo = {};
+    vehiculo.estado = elemento.dtTmp.estado;
+    vehiculo.tipoTarjeta = elemento.dtTmp.tipoTarjeta;
+    vehiculo.nit = elemento.dtTmp.nit;
+    vehiculo.numeroRegistro = elemento.dtTmp.numeroRegistro;
+    vehiculo.color = elemento.dtTmp.color;
+    vehiculo.marca = elemento.dtTmp.marca;
+    vehiculo.modelo = elemento.dtTmp.modelo;
+    vehiculo.chasis = elemento.dtTmp.chasis;
+    vehiculo.capacidadCarga = elemento.dtTmp.capacidadCarga;
+    vehiculo.tipoTransporte = elemento.dtTmp.tipoTransporte;
+    vehiculo.tipoVehiculo = elemento.dtTmp.tipoVehiculo;
+    vehiculo.fechaInicio = elemento.dtTmp.fechaInicio;
+    vehiculo.fechaFin = elemento.dtTmp.fechaFin;
+    vehiculos.push(vehiculo);
+  });
+  return vehiculos;
+};
+
+module.exports.obtenerRespuestaVehiculoUltimaTarjeta = (result) => {
+  const vehiculos = [];
+  const valores = result.VehiculoUltimaTarjetaResult.diffgram.DocumentElement;
+  let elementos = [];
+  if (valores.dtTmp instanceof Array) {
+    elementos = valores.dtTmp;
+  } else {
+    const vehiculo = {};
+    vehiculo.estado = valores.dtTmp.estado;
+    vehiculo.tipoTarjeta = valores.dtTmp.tipoTarjeta;
+    vehiculo.nit = valores.dtTmp.nit;
+    vehiculo.numeroRegistro = valores.dtTmp.numeroRegistro;
+    vehiculo.color = valores.dtTmp.color;
+    vehiculo.marca = valores.dtTmp.marca;
+    vehiculo.modelo = valores.dtTmp.modelo;
+    vehiculo.chasis = valores.dtTmp.chasis;
+    vehiculo.capacidadCarga = valores.dtTmp.capacidadCarga;
+    vehiculo.tipoTransporte = valores.dtTmp.tipoTransporte;
+    vehiculo.tipoVehiculo = valores.dtTmp.tipoVehiculo;
+    vehiculo.fechaInicio = valores.dtTmp.fechaInicio;
+    vehiculo.fechaFin = valores.dtTmp.fechaFin;
+    vehiculo.estadoVehiculo = valores.dtTmp.estadoVehiculo;
+    return vehiculo;
+  }
+  elementos.forEach((elemento) => {
+    const vehiculo = {};
+    vehiculo.estado = elemento.dtTmp.estado;
+    vehiculo.tipoTarjeta = elemento.dtTmp.tipoTarjeta;
+    vehiculo.nit = elemento.dtTmp.nit;
+    vehiculo.numeroRegistro = elemento.dtTmp.numeroRegistro;
+    vehiculo.color = elemento.dtTmp.color;
+    vehiculo.marca = elemento.dtTmp.marca;
+    vehiculo.modelo = elemento.dtTmp.modelo;
+    vehiculo.chasis = elemento.dtTmp.chasis;
+    vehiculo.capacidadCarga = elemento.dtTmp.capacidadCarga;
+    vehiculo.tipoTransporte = elemento.dtTmp.tipoTransporte;
+    vehiculo.tipoVehiculo = elemento.dtTmp.tipoVehiculo;
+    vehiculo.fechaInicio = elemento.dtTmp.fechaInicio;
+    vehiculo.fechaFin = elemento.dtTmp.fechaFin;
+    vehiculo.estadoVehiculo = elemento.dtTmp.estadoVehiculo;
+    vehiculos.push(vehiculo);
+  });
+  return vehiculos;
+};
+
+module.exports.obtenerRespuestaComplementariosVehiculos = (result) => {
+  const permisos = [];
+  const valores = result.ComplementariosVehiculosResult.diffgram.DocumentElement;
+  let elementos = [];
+  if (valores.dtTmp instanceof Array) {
+    elementos = valores.dtTmp;
+  } else {
+    elementos.push(valores.dtTmp);
+  }
+  elementos.forEach((elemento) => {
+    const permiso = {};
+    permiso.estado = elemento.estado;
+    permiso.numeroRegistro = elemento.numeroRegistro;
+    permiso.tipoVehiculo = elemento.tipoVehiculo;
+    permiso.placa = elemento.placa;
+    permiso.marca = elemento.marca;
+    permiso.chasis = elemento.chasis;
+    permiso.modelo = elemento.modelo;
+    permiso.capacidadCarga = elemento.capacidaCarga;
+    permiso.tipoCarroceria = elemento.tipoCarroceria;
+    permiso.numeroEjes = elemento.numeroEjes;
+    permiso.tipoAutorizacion = elemento.tipoAutorizacion;
+    permisos.push(permiso);
+  });
+  return permisos;
+};
