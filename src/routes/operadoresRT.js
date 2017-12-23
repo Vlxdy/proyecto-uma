@@ -2,7 +2,7 @@ const logger = require('../helpers/logger');
 const props = require('../../package.json');
 
 /**
-* @apiDefine uso Api de la USO
+* @apiDefine operadores Api de la USO Operadores
 */
 
 module.exports = (app) => {
@@ -13,7 +13,7 @@ module.exports = (app) => {
    * @api {get} <base-url>/v<version-servicio>/operadores/:nit/representantes?numeroRegistro=:numeroRegistro Representantes
    * @apiDescription Proporciona un listado de los representantes legales de un operador de transporte
    * @apiName obtenerRepresentantes
-   * @apiGroup uso
+   * @apiGroup operadores
    * @apiPermission Acceso a solicitud
    * @apiVersion 1.0.0
    *
@@ -69,7 +69,7 @@ module.exports = (app) => {
    * @api {get} <base-url>/v<version-servicio>/operadores/:nit/capacidades?numeroRegistro=:numeroRegistro Capacidades
    * @apiDescription Proporciona el estado de un operador de transporte
    * @apiName obtenerCapacidades
-   * @apiGroup uso
+   * @apiGroup operadores
    * @apiPermission Acceso a solicitud
    * @apiVersion 1.0.0
    *
@@ -112,7 +112,7 @@ module.exports = (app) => {
    * @api {get} <base-url>/v<version-servicio>/operadores/:documentoIdoneidad/permisos?pais=:pais Permisos
    * @apiDescription Proporciona un listado de los permisos complementarios de un operador de transporte
    * @apiName obtenerPermisos
-   * @apiGroup uso
+   * @apiGroup operadores
    * @apiPermission Acceso a solicitud
    * @apiVersion 1.0.0
    *
@@ -162,7 +162,7 @@ module.exports = (app) => {
    * @api {get} <base-url>/v<version-servicio>/operadores/:codigoIdentificacion/tramites Trámites
    * @apiDescription Proporciona datos del trámite de permiso complementario de un operador de transporte
    * @apiName obtenerTramites
-   * @apiGroup uso
+   * @apiGroup operadores
    * @apiPermission Acceso a solicitud
    * @apiVersion 1.0.0
    *

@@ -26,7 +26,7 @@ module.exports.vehiculoVigentes = (datosConsumo, callback) => {
     }
     datosConsumo.header.Autenticacion.attributes = { xmlns: client.wsdl.definitions.$targetNamespace };
     client.addSoapHeader(datosConsumo.header);
-    return client.VehiculoVigentes(datosConsumo.body, callback);
+    return client.VehiculoVigentes(datosConsumo.body, callback, { timeout: 5000 });
   });
 };
 
@@ -39,7 +39,7 @@ module.exports.vehiculoUltimaTarjeta = (datosConsumo, callback) => {
     }
     datosConsumo.header.Autenticacion.attributes = { xmlns: client.wsdl.definitions.$targetNamespace };
     client.addSoapHeader(datosConsumo.header);
-    return client.VehiculoUltimaTarjeta(datosConsumo.body, callback);
+    return client.VehiculoUltimaTarjeta(datosConsumo.body, callback, { timeout: 5000 });
   });
 };
 

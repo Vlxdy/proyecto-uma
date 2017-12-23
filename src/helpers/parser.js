@@ -71,7 +71,7 @@ module.exports.obtenerRespuestaTramitePermisos = (result) => {
     tramite.pais = valores.dtTmp.pais;
     tramite.documentoIdoneidad = valores.dtTmp.documentoIdoneidad;
     tramite.hojaRuta = valores.dtTmp.hojaRuta;
-    tramite.fechaHoraRuta = valores.dtTmp.fechaHoraRuta;
+    tramite.fechaHojaRuta = valores.dtTmp.fechaHojaRuta;
     tramite.tipoDocSoporte = valores.dtTmp.tipoDocSoporte;
     tramite.numeroDocSoporte = valores.dtTmp.numeroDocSoporte;
     tramite.fechaEmisionDocSoporte = valores.dtTmp.fechaEmisionDocSoporte;
@@ -86,7 +86,7 @@ module.exports.obtenerRespuestaTramitePermisos = (result) => {
     tramite.pais = elemento.dtTmp.pais;
     tramite.documentoIdoneidad = elemento.dtTmp.documentoIdoneidad;
     tramite.hojaRuta = elemento.dtTmp.hojaRuta;
-    tramite.fechaHoraRuta = elemento.dtTmp.fechaHoraRuta;
+    tramite.fechaHojaRuta = elemento.dtTmp.fechaHojaRuta;
     tramite.tipoDocSoporte = elemento.dtTmp.tipoDocSoporte;
     tramite.numeroDocSoporte = elemento.dtTmp.numeroDocSoporte;
     tramite.fechaEmisionDocSoporte = elemento.dtTmp.fechaEmisionDocSoporte;
@@ -114,7 +114,7 @@ module.exports.obtenerRespuestaVehiculosVigentes = (result) => {
     vehiculo.marca = valores.dtTmp.marca;
     vehiculo.modelo = valores.dtTmp.modelo;
     vehiculo.chasis = valores.dtTmp.chasis;
-    vehiculo.capacidadCarga = valores.dtTmp.capacidadCarga;
+    vehiculo.capacidadCarga = valores.dtTmp.capacidaCarga;
     vehiculo.tipoTransporte = valores.dtTmp.tipoTransporte;
     vehiculo.tipoVehiculo = valores.dtTmp.tipoVehiculo;
     vehiculo.fechaInicio = valores.dtTmp.fechaInicio;
@@ -131,7 +131,7 @@ module.exports.obtenerRespuestaVehiculosVigentes = (result) => {
     vehiculo.marca = elemento.dtTmp.marca;
     vehiculo.modelo = elemento.dtTmp.modelo;
     vehiculo.chasis = elemento.dtTmp.chasis;
-    vehiculo.capacidadCarga = elemento.dtTmp.capacidadCarga;
+    vehiculo.capacidadCarga = elemento.dtTmp.capacidaCarga;
     vehiculo.tipoTransporte = elemento.dtTmp.tipoTransporte;
     vehiculo.tipoVehiculo = elemento.dtTmp.tipoVehiculo;
     vehiculo.fechaInicio = elemento.dtTmp.fechaInicio;
@@ -157,7 +157,7 @@ module.exports.obtenerRespuestaVehiculoUltimaTarjeta = (result) => {
     vehiculo.marca = valores.dtTmp.marca;
     vehiculo.modelo = valores.dtTmp.modelo;
     vehiculo.chasis = valores.dtTmp.chasis;
-    vehiculo.capacidadCarga = valores.dtTmp.capacidadCarga;
+    vehiculo.capacidadCarga = valores.dtTmp.capacidaCarga;
     vehiculo.tipoTransporte = valores.dtTmp.tipoTransporte;
     vehiculo.tipoVehiculo = valores.dtTmp.tipoVehiculo;
     vehiculo.fechaInicio = valores.dtTmp.fechaInicio;
@@ -175,7 +175,7 @@ module.exports.obtenerRespuestaVehiculoUltimaTarjeta = (result) => {
     vehiculo.marca = elemento.dtTmp.marca;
     vehiculo.modelo = elemento.dtTmp.modelo;
     vehiculo.chasis = elemento.dtTmp.chasis;
-    vehiculo.capacidadCarga = elemento.dtTmp.capacidadCarga;
+    vehiculo.capacidadCarga = elemento.dtTmp.capacidaCarga;
     vehiculo.tipoTransporte = elemento.dtTmp.tipoTransporte;
     vehiculo.tipoVehiculo = elemento.dtTmp.tipoVehiculo;
     vehiculo.fechaInicio = elemento.dtTmp.fechaInicio;

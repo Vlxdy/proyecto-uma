@@ -2,7 +2,7 @@ const logger = require('../helpers/logger');
 const props = require('../../package.json');
 
 /**
-* @apiDefine uso Api de la USO
+* @apiDefine vehiculos Api de la USO Vehículos
 */
 
 module.exports = (app) => {
@@ -13,7 +13,7 @@ module.exports = (app) => {
    * @api {get} <base-url>/v<version-servicio>/vehiculos/:placa/tarjetas/:numeroTarjeta Tarjetas
    * @apiDescription Proporciona los datos de los vehículos vigentes de un operador de transporte
    * @apiName consultarTarjetas
-   * @apiGroup uso
+   * @apiGroup vehiculos
    * @apiPermission Acceso a solicitud
    * @apiVersion 1.0.0
    *
@@ -77,7 +77,7 @@ module.exports = (app) => {
    * @api {get} <base-url>/v<version-servicio>/vehiculos/:placa/tarjetas Última tarjeta
    * @apiDescription Proporciona los datos de la última tarjeta de operación de un operador de transporte
    * @apiName consultarUltimaTarjeta
-   * @apiGroup uso
+   * @apiGroup vehiculos
    * @apiPermission Acceso a solicitud
    * @apiVersion 1.0.0
    *
@@ -142,7 +142,7 @@ module.exports = (app) => {
    * @api {get} <base-url>/v<version-servicio>/vehiculos/:codigoVehiculo/permisos Permisos
    * @apiDescription Proporciona los datos de vehículos de permisos complementarios de un operador de transporte
    * @apiName consultarPermisosComplementarios
-   * @apiGroup uso
+   * @apiGroup vehiculos
    * @apiPermission Acceso a solicitud
    * @apiVersion 1.0.0
    *
@@ -155,8 +155,8 @@ module.exports = (app) => {
    * @apiSuccess {String} tipoVehiculo Tipo de vehículo.
    * @apiSuccess {String} placa Número de la placa asignado por el RUAT.
    * @apiSuccess {String} marca Marca del vehículo.
-   * @apiSuccess {String} modelo Año de fabricación del vehículo.
    * @apiSuccess {String} chasis Número de chasis del vehículo.
+   * @apiSuccess {String} modelo Año de fabricación del vehículo.
    * @apiSuccess {String} capacidadCarga Capacidad de carga expresada en toneladas.
    * @apiSuccess {String} tipoCarroceria Tipo de carrocería del vehículo.
    * @apiSuccess {String} numeroEjes Número de ejes del vehículo.

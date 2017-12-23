@@ -21,7 +21,7 @@ module.exports = (app) => {
     if (!params.hasOwnProperty('placa')) {
       throw new CodeError('El parámetro "placa" es necesario');
     }
-    if (/^\d+[A-Z]+$/.test(params.placa)) {
+    if (/^[\dA-Z]+$/.test(params.placa)) {
       parametrosWS.body.vPlaca = params.placa;
     } else {
       throw new CodeError('El parámetro "placa" solamente puede contener números seguidos de letras mayúsculas');
@@ -42,7 +42,7 @@ module.exports = (app) => {
     if (!params.hasOwnProperty('placa')) {
       throw new CodeError('El parámetro "placa" es necesario');
     }
-    if (/^\d+[A-Z]+$/.test(params.placa)) {
+    if (/^[\dA-Z]+$/.test(params.placa)) {
       parametrosWS.body.vPlaca = params.placa;
     } else {
       throw new CodeError('El parámetro "placa" solamente puede contener números seguidos de letras mayúsculas');
