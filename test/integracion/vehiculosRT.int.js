@@ -21,6 +21,7 @@ describe('Ruta de consumo', () => {
             marca: 'VOLVO',
             modelo: '2011',
             chasis: 'YV2AG30CXBA702972',
+            capacidadCarga: '24,00',
             tipoTransporte: 'Carga',
             tipoVehiculo: 'Tracto Camion',
             fechaInicio: '30/11/2017',
@@ -47,6 +48,7 @@ describe('Ruta de consumo', () => {
             marca: null,
             modelo: null,
             chasis: null,
+            capacidadCarga: null,
             tipoTransporte: null,
             tipoVehiculo: null,
             fechaInicio: null,
@@ -57,7 +59,7 @@ describe('Ruta de consumo', () => {
     });
 
     it('Debe devolver mensaje con error si se envía el número de placa sin formato correcto', (done) => {
-      request.get(`${configurations.app.baseUrl}/v${propiedades.datosServicio.version}/vehiculos/4403HU7/tarjetas/5979`)
+      request.get(`${configurations.app.baseUrl}/v${propiedades.datosServicio.version}/vehiculos/4403sHU7/tarjetas/5979`)
         .set('Accept', 'application/json')
         .expect(500)
         .end((err, res) => {
@@ -101,6 +103,7 @@ describe('Ruta de consumo', () => {
             marca: 'VOLVO',
             modelo: '2011',
             chasis: 'YV2AG30CXBA702972',
+            capacidadCarga: '24,00',
             tipoTransporte: 'Carga',
             tipoVehiculo: 'Tracto Camion',
             fechaInicio: '30/11/2017',
@@ -128,6 +131,7 @@ describe('Ruta de consumo', () => {
             marca: null,
             modelo: null,
             chasis: null,
+            capacidadCarga: '0',
             tipoTransporte: null,
             tipoVehiculo: null,
             fechaInicio: null,
@@ -139,7 +143,7 @@ describe('Ruta de consumo', () => {
     });
 
     it('Debe devolver mensaje con error si se envía el número de placa sin formato correcto', (done) => {
-      request.get(`${configurations.app.baseUrl}/v${propiedades.datosServicio.version}/vehiculos/4403HU7/tarjetas`)
+      request.get(`${configurations.app.baseUrl}/v${propiedades.datosServicio.version}/vehiculos/4403sHU7/tarjetas`)
         .set('Accept', 'application/json')
         .expect(500)
         .end((err, res) => {
