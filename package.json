@@ -4,6 +4,7 @@
   "description": "Servicio de Unidad de Servicio a Operadores",
   "datosServicio": {
     "entidad": "Unidad de Servicio a Operadores",
+    "siglaEntidad": "USO",
     "version": "1",
     "descripcion": "El servicio de la Unidad de Servicio a Operadores permite consultar los datos relacionados a los operadores de comercio exterior."
   },

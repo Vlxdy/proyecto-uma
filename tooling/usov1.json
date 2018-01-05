@@ -1,0 +1,80 @@
+{
+  "nombre": "iop-servicios-uso-v1",
+  "publicador": "Unidad de Servicio a Operadores",
+  "version": 1,
+  "metodos": [
+    {
+      "identificador": "obtenerRepresentantes",
+      "nombre": "Obtener listado de representantes legales",
+      "descripcion": "Proporciona un listado de los representantes legales de un operador de transporte",
+      "idCatalogo": 33,
+      "verbo": "GET",
+      "url": "/v1/operadores/:nit/representantes?numeroRegistro=:numeroRegistro",
+      "datosRespuesta": [
+        {
+          "estado": true,
+          "tipo": true,
+          "numero": true,
+          "estadoOperador": true
+        }
+      ]
+    },
+    {
+      "identificador": "obtenerCapacidades",
+      "nombre": "Obtener listado de las capacidades",
+      "descripcion": "Proporciona el estado de un operador de transporte",
+      "idCatalogo": 34,
+      "verbo": "GET",
+      "url": "/v1/operadores/:nit/capacidades?numeroRegistro=:numeroRegistro",
+      "datosRespuesta": {
+        "estado": true,
+        "capacidadSocios": true
+      }
+    },
+    {
+      "identificador": "obtenerPermisos",
+      "nombre": "Obtener permisos complementarios",
+      "descripcion": "Proporciona un listado de los permisos complementarios de un operador de transporte",
+      "idCatalogo": 35,
+      "verbo": "GET",
+      "url": "/v1/",
+      "datosRespuesta": {}
+    },
+    {
+      "identificador": "obtenerTramites",
+      "nombre": "Obtener trámites de permiso complementario",
+      "descripcion": "Proporciona datos del trámite de permiso complementario de un operador de transporte",
+      "idCatalogo": 36,
+      "verbo": "GET",
+      "url": "",
+      "datosRespuesta": {}
+    },
+    {
+      "identificador": "consultarTarjetas",
+      "nombre": "Obtener tarjetas de un vehículo",
+      "descripcion": "Proporciona los datos de los vehículos vigentes de un operador de transporte",
+      "idCatalogo": 37,
+      "verbo": "GET",
+      "url": "",
+      "datosRespuesta": {}
+    },
+    {
+      "identificador": "consultarUltimaTarjeta",
+      "nombre": "Obtener última tarjeta de un vehículo",
+      "descripcion": "Proporciona los datos de la última tarjeta de operación de un operador de transporte",
+      "idCatalogo": 38,
+      "verbo": "GET",
+      "url": "",
+      "datosRespuesta": {}
+    },
+    {
+      "identificador": "consultarPermisosComplementarios",
+      "nombre": "Obtener permisos complementarios de un vehículo",
+      "descripcion": "Proporciona los datos de vehículos de permisos complementarios de un operador de transporte",
+      "idCatalogo": 39,
+      "verbo": "GET",
+      "url": "",
+      "datosRespuesta": {}
+    }
+  ]
+}

@@ -12,12 +12,14 @@ const esquema = {
     idCatalogo: 0,
     verbo: '',
     url: '',
-    datosRespuesta: {}
+    datosRespuesta: {},
   }],
 };
 
-fs.writeFile(`tooling/${packageJson.datosServicio.entidad.toLowerCase()}v${parseInt(packageJson.datosServicio.version, 10)}.json`, JSON.stringify(esquema, null, 2), (err) => {
-  if(err) {
+const nombreArchivo = `tooling/${packageJson.datosServicio.siglaEntidad.toLowerCase()}v${parseInt(packageJson.datosServicio.version, 10)}.json`;
+
+fs.writeFile(nombreArchivo, JSON.stringify(esquema, null, 2), (err) => {
+  if (err) {
     console.log('Problema al crear el archivo', err);
     process.exit(1);
     return;
