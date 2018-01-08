@@ -37,8 +37,15 @@
       "descripcion": "Proporciona un listado de los permisos complementarios de un operador de transporte",
       "idCatalogo": 35,
       "verbo": "GET",
-      "url": "/v1/",
-      "datosRespuesta": {}
+      "url": "/v1/operadores/:documentoIdoneidad/permisos?pais=:pais",
+      "datosRespuesta": [
+        {
+          "estado": true,
+          "numeroRegistro": true,
+          "razonSocial": true,
+          "representanteLegalCI": true
+        }
+      ]
     },
     {
       "identificador": "obtenerTramites",
@@ -46,8 +53,20 @@
       "descripcion": "Proporciona datos del trámite de permiso complementario de un operador de transporte",
       "idCatalogo": 36,
       "verbo": "GET",
-      "url": "",
-      "datosRespuesta": {}
+      "url": "/v1/operadores/:codigoIdentificacion/tramites",
+      "datosRespuesta": {
+        "estado": true,
+        "pais": true,
+        "documentoIdoneidad": true,
+        "hojaRuta": true,
+        "fechaHojaRuta": true,
+        "tipoDocSoporte": true,
+        "numeroDocSoporte": true,
+        "fechaEmisionDocSoporte": true,
+        "fechaExpiracionDocSoporte": true,
+        "codigoIDVehiculos": true,
+        "razonSocial": true
+      }
     },
     {
       "identificador": "consultarTarjetas",
@@ -55,8 +74,22 @@
       "descripcion": "Proporciona los datos de los vehículos vigentes de un operador de transporte",
       "idCatalogo": 37,
       "verbo": "GET",
-      "url": "",
-      "datosRespuesta": {}
+      "url": "/v1/vehiculos/:placa/tarjetas/:numeroTarjeta",
+      "datosRespuesta": {
+        "estado": true,
+        "tipoTarjeta": true,
+        "nit": true,
+        "numeroRegistro": true,
+        "color": true,
+        "marca": true,
+        "modelo": true,
+        "chasis": true,
+        "capacidadCarga": true,
+        "tipoTransporte": true,
+        "tipoVehiculo": true,
+        "fechaInicio": true,
+        "fechaFin": true
+      }
     },
     {
       "identificador": "consultarUltimaTarjeta",
@@ -64,8 +97,23 @@
       "descripcion": "Proporciona los datos de la última tarjeta de operación de un operador de transporte",
       "idCatalogo": 38,
       "verbo": "GET",
-      "url": "",
-      "datosRespuesta": {}
+      "url": "/v1/vehiculos/:placa/tarjetas",
+      "datosRespuesta": {
+        "estado": true,
+        "tipoTarjeta": true,
+        "nit": true,
+        "numeroRegistro": true,
+        "color": true,
+        "marca": true,
+        "modelo": true,
+        "chasis": true,
+        "capacidadCarga": true,
+        "tipoTransporte": true,
+        "tipoVehiculo": true,
+        "fechaInicio": true,
+        "fechaFin": true,
+        "estadoVehiculo": true
+      }
     },
     {
       "identificador": "consultarPermisosComplementarios",
@@ -73,8 +121,22 @@
       "descripcion": "Proporciona los datos de vehículos de permisos complementarios de un operador de transporte",
       "idCatalogo": 39,
       "verbo": "GET",
-      "url": "",
-      "datosRespuesta": {}
+      "url": "/v1/vehiculos/:codigoVehiculo/permisos",
+      "datosRespuesta": [
+        {
+          "estado": true,
+          "numeroRegistro": true,
+          "tipoVehiculo": true,
+          "placa": true,
+          "marca": true,
+          "chasis": true,
+          "modelo": true,
+          "capacidadCarga": true,
+          "tipoCarroceria": true,
+          "numeroEjes": true,
+          "tipoAutorizacion": true
+        }
+      ]
     }
   ]
 }

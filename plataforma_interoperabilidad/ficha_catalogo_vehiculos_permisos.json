@@ -1,0 +1,47 @@
+{
+  "seguridad" : {
+      "politicasSeguridad" : "El ingreso se restringe por token de autorización por usuario consumidor",
+      "tipoAutenticacion" : "Token JWT",
+      "firma" : "NO",
+      "https" : "SI"
+  },
+  "informacionTecnica" : {
+      "url" : "-",
+      "tipo" : "REST",
+      "entorno" : "PRODUCCION",
+      "datosEntrada" : "código del vehículo",
+      "datosSalida" : "estado, número de registro, tipo de vehículo, placa, marca, chasis, modelo, capacidad de carga, tipo de carrocería, número de ejes, tipo de autorización",
+      "coberturaTemporal" : "24/7",
+      "tipoConexion" : "Internet",
+      "softwareRelacionado" : "Ninguno"
+  },
+  "contactos" : [
+      {
+          "responsable" : "Equipo de interoperabilidad",
+          "correoElectronico" : "plataforma-interoperabilidad@agetic.gob.bo",
+          "telefono" : "(591 -2) 2128706 int. 1028",
+          "cargo" : "Plataforma de Interoperabilidad"
+      }
+  ],
+  "restriccionesUso" : {
+      "baseLegal" : "Las bases legales se encuentran en los documentos del siguiente enlace: https://interoperabilidad.agetic.gob.bo/normativa",
+      "prerrequisitos": "Se requiere el envío de la Norma Técnica de Adhesión firmada por la MAE de la entidad consumidora, detallando el uso de este servicio",
+      "tarifa" : "Sin costo",
+      "restriccionesAdicionales" : "No existe"
+  },
+  "datosGenerales" : {
+      "identificador" : 39,
+      "nombre" : "Obtener permisos complementarios de un vehículo",
+      "descripcion" : "Servicio que proporciona los datos de vehículos de permisos complementarios de un operador de transporte",
+      "estado" : "ACTIVO",
+      "fechaInicioDisponibilidad" : "08/01/2018",
+      "fechaFinDisponibilidad" : null,
+      "propietario" : "USO",
+      "fechaRegistro" : null,
+      "fechaActualizacion" : null,
+      "version" : "1",
+      "documentacion" : "https://test.agetic.gob.bo/documentacion/iop-servicios-uso-v1/#api-vehiculos-consultarPermisosComplementarios",
+      "serviciosRelacionados" : "https://interoperabilidad.agetic.gob.bo/catalogo/servicios/33, https://interoperabilidad.agetic.gob.bo/catalogo/servicios/34, https://interoperabilidad.agetic.gob.bo/catalogo/servicios/35, https://interoperabilidad.agetic.gob.bo/catalogo/servicios/36, https://interoperabilidad.agetic.gob.bo/catalogo/servicios/37, https://interoperabilidad.agetic.gob.bo/catalogo/servicios/38",
+      "palabrasClave" : "vehículos, código de placa"
+  }
+}
