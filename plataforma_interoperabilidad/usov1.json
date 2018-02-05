@@ -1,0 +1,142 @@
+{
+  "nombre": "iop-servicios-uso-v1",
+  "publicador": "Unidad de Servicio a Operadores",
+  "version": 1,
+  "metodos": [
+    {
+      "identificador": "obtenerRepresentantes",
+      "nombre": "Obtener listado de representantes legales",
+      "descripcion": "Proporciona un listado de los representantes legales de un operador de transporte",
+      "idCatalogo": 33,
+      "verbo": "GET",
+      "url": "/v1/operadores/:nit/representantes?numeroRegistro=:numeroRegistro",
+      "datosRespuesta": [
+        {
+          "estado": true,
+          "tipo": true,
+          "numero": true,
+          "estadoOperador": true
+        }
+      ]
+    },
+    {
+      "identificador": "obtenerCapacidades",
+      "nombre": "Obtener listado de las capacidades",
+      "descripcion": "Proporciona el estado de un operador de transporte",
+      "idCatalogo": 34,
+      "verbo": "GET",
+      "url": "/v1/operadores/:nit/capacidades?numeroRegistro=:numeroRegistro",
+      "datosRespuesta": {
+        "estado": true,
+        "capacidadSocios": true
+      }
+    },
+    {
+      "identificador": "obtenerPermisos",
+      "nombre": "Obtener permisos complementarios",
+      "descripcion": "Proporciona un listado de los permisos complementarios de un operador de transporte",
+      "idCatalogo": 35,
+      "verbo": "GET",
+      "url": "/v1/operadores/:documentoIdoneidad/permisos?pais=:pais",
+      "datosRespuesta": [
+        {
+          "estado": true,
+          "numeroRegistro": true,
+          "razonSocial": true,
+          "representanteLegalCI": true
+        }
+      ]
+    },
+    {
+      "identificador": "obtenerTramites",
+      "nombre": "Obtener trámites de permiso complementario",
+      "descripcion": "Proporciona datos del trámite de permiso complementario de un operador de transporte",
+      "idCatalogo": 36,
+      "verbo": "GET",
+      "url": "/v1/operadores/:codigoIdentificacion/tramites",
+      "datosRespuesta": {
+        "estado": true,
+        "pais": true,
+        "documentoIdoneidad": true,
+        "hojaRuta": true,
+        "fechaHojaRuta": true,
+        "tipoDocSoporte": true,
+        "numeroDocSoporte": true,
+        "fechaEmisionDocSoporte": true,
+        "fechaExpiracionDocSoporte": true,
+        "codigoIDVehiculos": true,
+        "razonSocial": true
+      }
+    },
+    {
+      "identificador": "consultarTarjetas",
+      "nombre": "Obtener tarjetas de un vehículo",
+      "descripcion": "Proporciona los datos de los vehículos vigentes de un operador de transporte",
+      "idCatalogo": 37,
+      "verbo": "GET",
+      "url": "/v1/vehiculos/:placa/tarjetas/:numeroTarjeta",
+      "datosRespuesta": {
+        "estado": true,
+        "tipoTarjeta": true,
+        "nit": true,
+        "numeroRegistro": true,
+        "color": true,
+        "marca": true,
+        "modelo": true,
+        "chasis": true,
+        "capacidadCarga": true,
+        "tipoTransporte": true,
+        "tipoVehiculo": true,
+        "fechaInicio": true,
+        "fechaFin": true
+      }
+    },
+    {
+      "identificador": "consultarUltimaTarjeta",
+      "nombre": "Obtener última tarjeta de un vehículo",
+      "descripcion": "Proporciona los datos de la última tarjeta de operación de un operador de transporte",
+      "idCatalogo": 38,
+      "verbo": "GET",
+      "url": "/v1/vehiculos/:placa/tarjetas",
+      "datosRespuesta": {
+        "estado": true,
+        "tipoTarjeta": true,
+        "nit": true,
+        "numeroRegistro": true,
+        "color": true,
+        "marca": true,
+        "modelo": true,
+        "chasis": true,
+        "capacidadCarga": true,
+        "tipoTransporte": true,
+        "tipoVehiculo": true,
+        "fechaInicio": true,
+        "fechaFin": true,
+        "estadoVehiculo": true
+      }
+    },
+    {
+      "identificador": "consultarPermisosComplementarios",
+      "nombre": "Obtener permisos complementarios de un vehículo",
+      "descripcion": "Proporciona los datos de vehículos de permisos complementarios de un operador de transporte",
+      "idCatalogo": 39,
+      "verbo": "GET",
+      "url": "/v1/vehiculos/:codigoVehiculo/permisos",
+      "datosRespuesta": [
+        {
+          "estado": true,
+          "numeroRegistro": true,
+          "tipoVehiculo": true,
+          "placa": true,
+          "marca": true,
+          "chasis": true,
+          "modelo": true,
+          "capacidadCarga": true,
+          "tipoCarroceria": true,
+          "numeroEjes": true,
+          "tipoAutorizacion": true
+        }
+      ]
+    }
+  ]
+}

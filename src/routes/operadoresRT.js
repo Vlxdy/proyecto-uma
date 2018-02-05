@@ -184,7 +184,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'http://127.0.0.1:8081/v1/operadores/123456/capacidades?numeroRegistro=123' \
+   *      'http://127.0.0.1:8081/v1/operadores/123456/tramites' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio

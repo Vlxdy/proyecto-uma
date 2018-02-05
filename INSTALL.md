@@ -15,12 +15,22 @@
   $ npm install
   ```
 
-3. Mover ó copiar el proyecto a */var/www* con el nombre ****nombre-servicio****
+3. La configuración de accesos del servicio se encuentran en el archivo *src/configurations/service.js*, la estructura es la siguiente:
+  ```
+  {
+      usuario: 'nombreUsuario', // usuario proporcionado por el publicador
+      clave: 'passwod', // password del usuario proporcionado
+      wsdl: 'http://dominio.entidad/servicio', // endpoint para los servicios de operadores
+      wsdlVehiculos: 'http://dominio.entidad/servicio', // endpoint para los servicios de vehículos
+  }
+  ```
+
+4. Mover ó copiar el proyecto a */var/www* con el nombre ****nombre-servicio****
   ```
   $ sudo cp -R <nombre-carpeta> /var/www/****nombre-servicio****
   ```
 
-2. Ahora, se instalará nginx con phusion passenger para publicar la aplicación. Para mayor información, revisar:
+5. Ahora, se instalará nginx con phusion passenger para publicar la aplicación. Para mayor información, revisar:
 [Documentación de Nginx](https://www.nginx.com/resources/wiki/ "NGINX"), [Documentación de Passenger](https://www.phusionpassenger.com/documentation_and_support "Passenger").
 
   1. Para instalar passenger:
@@ -72,7 +82,7 @@
                     passenger_startup_file index.js;
                     passenger_nodejs /usr/bin/node;
           }
-}
+  }
   ```
 
   5. Ahora para reiniciar el servicio con las configuraciones realizadas:
