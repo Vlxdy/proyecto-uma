@@ -38,24 +38,24 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'http://127.0.0.1:8081/v1/vehiculos/123ABC/tarjetas/123' \
+   *      'http://127.0.0.1:8081/v1/vehiculos/5675NBG/tarjetas/5398' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
    * {
    *     "estado": "OK",
-   *     "tipoTarjeta": "NE",
-   *     "nit": "123482029",
-   *     "numeroRegistro": "1667",
-   *     "color": "ANARANJADO COMBINADO",
-   *     "marca": "VOLVO",
-   *     "modelo": "2010000",
-   *     "chasis": "YV2DHNF7Y8U972",
-   *     "capacidadCarga": "13,00",
+   *     "tipoTarjeta": "5E",
+   *     "nit": "283596024",
+   *     "numeroRegistro": "1874",
+   *     "color": "VERDE",
+   *     "marca": "MARCA09",
+   *     "modelo": "2013",
+   *     "chasis": "8975FGRHV",
+   *     "capacidadCarga": "12,00",
    *     "tipoTransporte": "Carga",
-   *     "tipoVehiculo": "Tracto Camion",
-   *     "fechaInicio": "30/10/2017",
-   *     "fechaFin": "30/10/2019"
+   *     "tipoVehiculo": "Camion",
+   *     "fechaInicio": "02/06/2017",
+   *     "fechaFin": "02/06/2021"
    * }
    *
    * @apiSampleRequest https://interoperabilidad.agetic.gob.bo/fake
@@ -103,24 +103,24 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'http://127.0.0.1:8081/v1/vehiculos/123ABC/tarjetas/123' \
+   *      'http://127.0.0.1:8081/v1/vehiculos/5675NBG/tarjetas' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
    * {
    *     "estado": "OK",
-   *     "tipoTarjeta": "NE",
-   *     "nit": "123482029",
-   *     "numeroRegistro": "1667",
-   *     "color": "ANARANJADO COMBINADO",
-   *     "marca": "VOLVO",
-   *     "modelo": "2010000",
-   *     "chasis": "YV2DHNF7Y8U972",
-   *     "capacidadCarga": "13,00",
+   *     "tipoTarjeta": "5E",
+   *     "nit": "283596024",
+   *     "numeroRegistro": "1874",
+   *     "color": "VERDE",
+   *     "marca": "MARCA09",
+   *     "modelo": "2013",
+   *     "chasis": "8975FGRHV",
+   *     "capacidadCarga": "12,00",
    *     "tipoTransporte": "Carga",
-   *     "tipoVehiculo": "Tracto Camion",
-   *     "fechaInicio": "30/10/2017",
-   *     "fechaFin": "30/10/2019",
+   *     "tipoVehiculo": "Camion",
+   *     "fechaInicio": "02/06/2017",
+   *     "fechaFin": "02/06/2021",
    *     "estadoVehiculo": "True"
    * }
    *
@@ -166,7 +166,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'http://127.0.0.1:8081/v1/vehiculos/123/permisos' \
+   *      'http://127.0.0.1:8081/v1/vehiculos/8544/permisos' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -175,26 +175,26 @@ module.exports = (app) => {
    *         "estado": "OK",
    *         "numeroRegistro": "0",
    *         "tipoVehiculo": "CAMION",
-   *         "placa": "JPFF37",
+   *         "placa": "EDR345",
    *         "marca": "VOLVO",
-   *         "chasis": "YV2DF76G8HJB14",
-   *         "modelo": "1997",
-   *         "capacidadCarga": "14,00",
-   *         "tipoCarroceria": "BARANDA",
+   *         "chasis": "YV2A4B3C54A259584",
+   *         "modelo": "2004",
+   *         "capacidadCarga": "0,00",
+   *         "tipoCarroceria": "",
    *         "numeroEjes": "3",
    *         "tipoAutorizacion": "Alta"
    *     },
    *     {
    *         "estado": "OK",
    *         "numeroRegistro": "0",
-   *         "tipoVehiculo": "REMOLQUE",
-   *         "placa": "GRAS22",
-   *         "marca": "FRUEHAUF",
-   *         "chasis": "PW82346746",
+   *         "tipoVehiculo": "CAMION",
+   *         "placa": "NBG567",
+   *         "marca": "VOLVO",
+   *         "chasis": "GROENEWENG",
    *         "modelo": "2000",
-   *         "capacidadCarga": "13,00",
-   *         "tipoCarroceria": "BARANDA",
-   *         "numeroEjes": "2",
+   *         "capacidadCarga": "20,00",
+   *         "tipoCarroceria": "CAJA ABIERTA",
+   *         "numeroEjes": "3",
    *         "tipoAutorizacion": "Alta"
    *     }
    * ]

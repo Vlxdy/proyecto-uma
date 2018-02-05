@@ -30,7 +30,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'http://127.0.0.1:8081/v1/operadores/123456/representantes?numeroRegistro=123' \
+   *      'http://127.0.0.1:8081/v1/operadores/3457869016/representantes?numeroRegistro=1696' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -38,14 +38,14 @@ module.exports = (app) => {
    *     {
    *         "estado": "OK",
    *         "tipo": "CI",
-   *         "numero": "2763627",
-   *         "estadoOperador": "S"
+   *         "numero": "3457869",
+   *         "estadoOperador": "H"
    *     },
    *     {
    *         "estado": "OK",
    *         "tipo": "CI",
-   *         "numero": "2773943",
-   *         "estadoOperador": "S"
+   *         "numero": "3457869",
+   *         "estadoOperador": "H"
    *     }
    * ]
    *
@@ -83,7 +83,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'http://127.0.0.1:8081/v1/operadores/123456/capacidades?numeroRegistro=123' \
+   *      'http://127.0.0.1:8081/v1/operadores/3457869016/capacidades?numeroRegistro=1696' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -129,7 +129,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'http://127.0.0.1:8081/v1/operadores/123456/permisos?pais=2' \
+   *      'http://127.0.0.1:8081/v1/operadores/4312/permisos?pais=4' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -137,8 +137,20 @@ module.exports = (app) => {
    *     {
    *         "estado": "OK",
    *         "numeroRegistro": "0",
-   *         "razonSocial": "TRANSPORTES FUTURO S.A.",
-   *         "representanteLegalCI": "4779123"
+   *         "razonSocial": "NEYVA LUCUY BARJA",
+   *         "representanteLegalCI": "7466721"
+   *     },
+   *     {
+   *         "estado": "OK",
+   *         "numeroRegistro": "0",
+   *         "razonSocial": "NEYVA LUCUY BARJA",
+   *         "representanteLegalCI": "7466721"
+   *     },
+   *     {
+   *         "estado": "OK",
+   *         "numeroRegistro": "0",
+   *         "razonSocial": "NEYVA LUCUY BARJA",
+   *         "representanteLegalCI": "7466721"
    *     }
    * ]
    *
@@ -184,21 +196,22 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'http://127.0.0.1:8081/v1/operadores/123456/tramites' \
+   *      'http://127.0.0.1:8081/v1/operadores/1125%2F2017/tramites' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
    * {
    *     "estado": "OK",
-   *     "pais": "Argentina",
-   *     "documentoIdoneidad": "7958",
-   *     "hojaRuta": "34563/2017",
-   *     "tipoDocSoporte": "Idoneidad - Certificado Provisorio",
-   *     "numeroDocSoporte": "1637/2017",
-   *     "fechaEmisionDocSoporte": "14/11/2017",
-   *     "fechaExpiracionDocSoporte": "14/02/2018",
-   *     "codigoIDVehiculos": "6849",
-   *     "razonSocial": "JARAMILLO EMANUEL SERGIO"
+   *     "pais": "Chile",
+   *     "documentoIdoneidad": "4217",
+   *     "hojaRuta": "38954/2017",
+   *     "fechaHojaRuta": "11/11/2017",
+   *     "tipoDocSoporte": "Idoneidad - Resolución Administrativa",
+   *     "numeroDocSoporte": "018954",
+   *     "fechaEmisionDocSoporte": "21/12/2017",
+   *     "fechaExpiracionDocSoporte": "27/09/2027",
+   *     "codigoIDVehiculos": "8544",
+   *     "razonSocial": "CECILIA MIRANDA FLORES"
    * }
    *
    * @apiSampleRequest https://interoperabilidad.agetic.gob.bo/fake
