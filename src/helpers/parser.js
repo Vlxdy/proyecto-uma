@@ -212,3 +212,61 @@ module.exports.obtenerRespuestaComplementariosVehiculos = (result) => {
   });
   return permisos;
 };
+
+module.exports.obtenerRespuestaOperadores = (result) => {
+  const operadores = [];
+  const valores = result.OperadoresAgeticResult.diffgram.DocumentElement;
+  let elementos = [];
+  if (valores.dtTmp instanceof Array) {
+    elementos = valores.dtTmp;
+  } else {
+    elementos.push(valores.dtTmp);
+  }
+  elementos.forEach((elemento) => {
+    const operador = {};
+    operador.estado = elemento.estado;
+    operador.nit = elemento.nit;
+    operador.numeroRegistro = elemento.numeroRegistro;
+    operador.razonSocial = elemento.razonSocial;
+    operador.nombreComercial = elemento.nombreComercial;
+    operador.sigla = elemento.sigla;
+    operador.tipoDocumento = elemento.tipoDocumento;
+    operador.maRa = elemento.maRa;
+    operador.estaOperador = elemento.estaOperador;
+    operador.tipoTransporte = elemento.tipoTransporte;
+    operador.tipoRepresentante = elemento.tipoRepresentante;
+    operador.ciRepresentante = elemento.ciRepresentante;
+    operadores.push(operador);
+  });
+  return operadores;
+};
+
+module.exports.obtenerRespuestaVehiculos = (result) => {
+  const vehiculos = [];
+  const valores = result.VehiculosAgeticResult.diffgram.DocumentElement;
+  let elementos = [];
+  if (valores.dtTmp instanceof Array) {
+    elementos = valores.dtTmp;
+  } else {
+    elementos.push(valores.dtTmp);
+  }
+  elementos.forEach((elemento) => {
+    const vehiculo = {};
+    vehiculo.estado = elemento.estado;
+    vehiculo.placa = elemento.placa;
+    vehiculo.numeroRegistro = elemento.numeroRegistro;
+    vehiculo.tipoVehiculo = elemento.tipoVehiculo;
+    vehiculo.marca = elemento.marca;
+    vehiculo.chasis = elemento.chasis;
+    vehiculo.modelo = elemento.modelo;
+    vehiculo.capacidadCarga = elemento.capacidaCarga;
+    vehiculo.tipoTransporte = elemento.tipoTransporte;
+    vehiculo.numeroEjes = elemento.numeroEjes;
+    vehiculo.numeroTarjeta = elemento.numeroTarjeta;
+    vehiculo.tipoTarjeta = elemento.tipoTarjeta;
+    vehiculo.fechaDesde = elemento.fechaDesde;
+    vehiculo.fechaHasta = elemento.fechaHasta;
+    vehiculos.push(vehiculo);
+  });
+  return vehiculos;
+};

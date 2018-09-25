@@ -229,4 +229,80 @@ module.exports = (app) => {
         return res.json(respuesta);
       });
     });
+
+  /**
+   * @api {get} <base-url>/v<version-servicio>/operadores Operadores
+   * @apiDescription Proporciona datos de los operadores de transporte
+   * @apiName obtenerOperadores
+   * @apiGroup operadores
+   * @apiPermission Acceso a solicitud
+   * @apiVersion 1.0.0
+   *
+   * @apiHeader {String} Authorization Token de acceso al servicio.
+   *
+   * @apiSuccess {Object[]} . Array que contiene la respuesta del servicio.
+   * @apiSuccess {String} .estado OK si existe el operador o ERR si no existe.
+   * @apiSuccess {String} .nit Número de identificación tributaria del operador.
+   * @apiSuccess {String} .numeroRegistro Número de registro del operador asignado por el VMT.
+   * @apiSuccess {String} .razonSocial Razón social del operador.
+   * @apiSuccess {String} .nombreComercial Nombre comercial utilizado por el operador.
+   * @apiSuccess {String} .sigla Sigla del operador asignado por el VMT.
+   * @apiSuccess {String} .tipoDocumento Documento que habilita al operador para constituirse en empresa o cooperativa.
+   * @apiSuccess {String} .maRa Número del documento que habilita la empresa o cooperativa.
+   * @apiSuccess {String} .estadoOperador H si el operador está habilitado o S si está suspendido.
+   * @apiSuccess {String} .tipoTransporte El tipo de servicio de transporte.
+   * @apiSuccess {String} .tipoRepresentante Especifica el tipo de representante legal del operador.
+   * @apiSuccess {String} .ciRepresentante Número de identificación del representante legal.
+   *
+   * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
+   * curl -X GET \
+   *      'http://127.0.0.1:8081/v1/operadores' \
+   *      -H 'Authorization: Bearer <token-de-acceso>'
+   *
+   * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
+   * [
+   *     {
+   *         "estado": "OK",
+   *         "nit": null,
+   *         "numeroRegistro": "2",
+   *         "razonSocial": "COMERCIAL MENDEZ",
+   *         "nombreComercial": null,
+   *         "sigla": "BOTIC",
+   *         "tipoDocumento": "Sin dato",
+   *         "maRa": "Sin dato",
+   *         "estaOperador": "S",
+   *         "tipoTransporte": "Carga",
+   *         "tipoRepresentante": "Sin dato",
+   *         "ciRepresentante": null
+   *     },
+   *     {
+   *         "estado": "OK",
+   *         "nit": "363356029",
+   *         "numeroRegistro": "1090",
+   *         "razonSocial": "EMPRESA DE TRANSPORTE PREMIUMBUS S.R.L.",
+   *         "nombreComercial": null,
+   *         "sigla": "REG",
+   *         "tipoDocumento": "Sin dato",
+   *         "maRa": "Sin dato",
+   *         "estaOperador": "S",
+   *         "tipoTransporte": "Pasajeros",
+   *         "tipoRepresentante": "Sin dato",
+   *         "ciRepresentante": null
+   *     }
+   * ]
+   *
+   * @apiSampleRequest https://interoperabilidad.agetic.gob.bo/fake
+   */
+  app.route(`${config.app.baseUrl}/v${props.datosServicio.version}/operadores`)
+    .get((req, res) => {
+      logger.info(`[${config.app.baseUrl}/v${props.datosServicio.version}/operadores] Iniciando...`, req.route);
+      operadoresBL.obtenerOperadores((err, respuesta) => {
+        if (err) {
+          logger.error(`[${config.app.baseUrl}/v${props.datosServicio.version}/operadores] Error...`, err);
+          return res.status(err.statusCode || 500).json(err);
+        }
+        logger.info(`[${config.app.baseUrl}/v${props.datosServicio.version}/operadores] Respuesta`, respuesta);
+        return res.json(respuesta);
+      });
+    });
 };

@@ -55,3 +55,16 @@ module.exports.complementariosVehiculos = (datosConsumo, callback) => {
     return client.ComplementariosVehiculos(datosConsumo.body, callback);
   });
 };
+
+module.exports.vehiculosAgetic = (datosConsumo, callback) => {
+  logger.info(`[${__filename}|VehiculosAgetic] Consumiendo método de listado de vehículos...`);
+  return soap.createClient(datosConsumo.url, opciones, (err, client) => {
+    logData(client);
+    if (err) {
+      return callback(err);
+    }
+    datosConsumo.header.Autenticacion.attributes = { xmlns: client.wsdl.definitions.$targetNamespace };
+    client.addSoapHeader(datosConsumo.header);
+    return client.VehiculosAgetic(datosConsumo.body, callback);
+  });
+};

@@ -137,6 +137,56 @@
           "tipoAutorizacion": true
         }
       ]
+    },
+    {
+      "identificador": "obtenerOperadores",
+      "nombre": "Obtener operadores",
+      "descripcion": "Proporciona el listado de los operadores de transporte",
+      "idCatalogo": 87,
+      "verbo": "GET",
+      "url": "/v1/operadores",
+      "datosRespuesta": [
+        {
+        "estado": true,
+        "nit": true,
+        "numeroRegistro": true,
+        "razonSocial": true,
+        "nombreComercial": true,
+        "sigla": true,
+        "tipoDocumento": true,
+        "maRa": true,
+        "estaOperador": true,
+        "tipoTransporte": true,
+        "tipoRepresentante": true,
+        "ciRepresentante": true
+        }
+      ]
+    },
+    {
+      "identificador": "obtenerVehiculos",
+      "nombre": "Proporciona el listado de vehículos",
+      "descripcion": "Proporciona el listado de vehículos",
+      "idCatalogo": 88,
+      "verbo": "GET",
+      "url": "/v1/vehiculos",
+      "datosRespuesta": [
+        {
+        "estado": true,
+        "placa": true,
+        "numeroRegistro": true,
+        "tipoVehiculo": true,
+        "marca": true,
+        "chasis": true,
+        "modelo": true,
+        "capacidadCarga": true,
+        "tipoTransporte": true,
+        "numeroEjes": true,
+        "numeroTarjeta": true,
+        "tipoTarjeta": true,
+        "fechaDesde": true,
+        "fechaHasta": true
+        }
+      ]
     }
   ]
 }

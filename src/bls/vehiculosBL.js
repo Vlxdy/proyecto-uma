@@ -102,6 +102,21 @@ module.exports = (app) => {
     });
   };
 
+  const obtenerVehiculos = (callback) => {
+    logger.info(`[${__filename}|obtenerVehiculos] Parametros enviados`);
+    const parametrosWS = new ParametrosWS();
+    parametrosWS.url = servicesConfig.wsdlUso;
+    return vehiculosWS.vehiculosAgetic(parametrosWS, (err, result) => {
+      if (err) {
+        logger.error(`[${__filename}|obtenerVehiculos] Error al consumir el servicio de vehículos`, err);
+        return callback({ mensaje: 'Error al consumir el servicio' });
+      }
+      const respuesta = parser.obtenerRespuestaVehiculos(result);
+      logger.debug(`[${__filename}|obtenerVehiculos] Consumo exitoso`, respuesta);
+      return callback(err, respuesta);
+    });
+  };
+
   return {
     validarParametrosVehiculo,
     validarParametrosUltimoVehiculo,
@@ -109,5 +124,6 @@ module.exports = (app) => {
     consultarVehiculosVigentes,
     consultarUltimaTarjeta,
     consultarPermisosComplementarios,
+    obtenerVehiculos,
   };
 };

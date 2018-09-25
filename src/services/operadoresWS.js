@@ -68,3 +68,16 @@ module.exports.verificacionLlenadoTRE = (datosConsumo, callback) => {
     return client.VerificacionLlenadoTRE(datosConsumo.body, callback);
   });
 };
+
+module.exports.operadoresAgetic = (datosConsumo, callback) => {
+  logger.info(`[${__filename}|operadoresAgetic] Consumiendo método de listado de operadores de transporte...`);
+  return soap.createClient(datosConsumo.url, opciones, (err, client) => {
+    logData(client);
+    if (err) {
+      return callback(err);
+    }
+    datosConsumo.header.Autenticacion.attributes = { xmlns: client.wsdl.definitions.$targetNamespace };
+    client.addSoapHeader(datosConsumo.header);
+    return client.OperadoresAgetic(datosConsumo.body, callback);
+  });
+};

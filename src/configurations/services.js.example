@@ -3,4 +3,5 @@ module.exports = {
   clave: 'passwod',
   wsdl: 'http://dominio.entidad/servicio',
   wsdlVehiculos: 'http://dominio.entidad/servicio',
+  wsdlUso: 'http://dominio.entidad/servicio',
 };

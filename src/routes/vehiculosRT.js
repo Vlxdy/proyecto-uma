@@ -214,4 +214,86 @@ module.exports = (app) => {
         return res.json(respuesta);
       });
     });
+
+  /**
+   * @api {get} <base-url>/v<version-servicio>/vehiculos Vehiculos
+   * @apiDescription Proporciona datos de los vehículos
+   * @apiName obtenerVehiculos
+   * @apiGroup vehiculos
+   * @apiPermission Acceso a solicitud
+   * @apiVersion 1.0.0
+   *
+   * @apiHeader {String} Authorization Token de acceso al servicio.
+   *
+   * @apiSuccess {Object[]} . Array que contiene la respuesta del servicio.
+   * @apiSuccess {String} .estado OK si existe el operador o ERR si no existe.
+   * @apiSuccess {String} .placa Número de la placa asignado por el RUAT.
+   * @apiSuccess {String} .numeroRegistro Número de registro del operador asignado por el VMT.
+   * @apiSuccess {String} .tipoVehiculo Tipo de vehículo.
+   * @apiSuccess {String} .marca Marca del vehículo.
+   * @apiSuccess {String} .chasis Número de chasis del vehículo.
+   * @apiSuccess {String} .modelo Año de fabricación del vehículo.
+   * @apiSuccess {String} .capacidadCarga Capacidad de carga expresada en toneladas.
+   * @apiSuccess {String} .tipoTransporte Tipo de servicio de transporte.
+   * @apiSuccess {String} .numeroEjes Cantidad de ejes contemplados en la estructura del medio de transporte.
+   * @apiSuccess {String} .numeroTarjeta Número de tarjeta por categoría asignado por el VMT.
+   * @apiSuccess {String} .tipoTarjeta Categoría de la tarjeta.
+   * @apiSuccess {String} .fechaDesde Fecha de inicio de vigencia de la tarjeta de operación.
+   * @apiSuccess {String} .fechaHasta Fecha final de vigencia de la tarjeta de operación.
+   *
+   * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
+   * curl -X GET \
+   *      'http://127.0.0.1:8081/v1/vehiculos' \
+   *      -H 'Authorization: Bearer <token-de-acceso>'
+   *
+   * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
+   * [
+   *    {
+   *        "estado": "OK",
+   *        "placa": "1503SCA",
+   *        "numeroRegistro": "1654",
+   *        "tipoVehiculo": "Camion",
+   *        "marca": "VOLVO",
+   *        "chasis": "YV2H3A8A8NA372769",
+   *        "modelo": "1992",
+   *        "capacidadCarga": "14,00",
+   *        "tipoTransporte": "Carga",
+   *        "numeroEjes": "0",
+   *        "numeroTarjeta": "872",
+   *        "tipoTarjeta": "Socio o Empresa",
+   *        "fechaDesde": "16/01/2018",
+   *        "fechaHasta": "16/01/2020"
+   *    },
+   *    {
+   *        "estado": "OK",
+   *        "placa": "2190YKX",
+   *        "numeroRegistro": "1654",
+   *        "tipoVehiculo": "Tracto Camion",
+   *        "marca": "SCANIA",
+   *        "chasis": "YS2R6X20001230001",
+   *        "modelo": "1997",
+   *        "capacidadCarga": "24,00",
+   *        "tipoTransporte": "Carga",
+   *        "numeroEjes": "0",
+   *        "numeroTarjeta": "873",
+   *        "tipoTarjeta": "Socio o Empresa",
+   *        "fechaDesde": "16/01/2018",
+   *        "fechaHasta": "16/01/2020"
+   *    }
+   * ]
+   *
+   * @apiSampleRequest https://interoperabilidad.agetic.gob.bo/fake
+   */
+  app.route(`${config.app.baseUrl}/v${props.datosServicio.version}/vehiculos`)
+    .get((req, res) => {
+      logger.info(`[${config.app.baseUrl}/v${props.datosServicio.version}/vehiculos] Iniciando...`, req.route);
+      vehiculosBL.obtenerVehiculos((err, respuesta) => {
+        if (err) {
+          logger.error(`[${config.app.baseUrl}/v${props.datosServicio.version}/vehiculos] Error...`, err);
+          return res.status(err.statusCode || 500).json(err);
+        }
+        logger.info(`[${config.app.baseUrl}/v${props.datosServicio.version}/vehiculos] Respuesta`, respuesta);
+        return res.json(respuesta);
+      });
+    });
 };
