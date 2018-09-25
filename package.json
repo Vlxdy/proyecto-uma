@@ -14,7 +14,8 @@
     "lint": "eslint --ext .js src",
     "apidoc": "./node_modules/.bin/gulp apidoc",
     "test": "NODE_ENV=test mocha test/**/*.js",
-    "gen-esquema": "node tooling/generar-esquema.js"
+    "gen-esquema": "node tooling/generar-esquema.js",
+    "deploy": "sudo mkdir /var/www/iop-servicios-uso-v1 && sudo cp -R logs /var/www/iop-servicios-uso-v1 && sudo cp -R node_modules /var/www/iop-servicios-uso-v1 && sudo cp -R src /var/www/iop-servicios-uso-v1 && sudo cp index.js /var/www/iop-servicios-uso-v1 && sudo cp package.json /var/www/iop-servicios-uso-v1"
   },
   "keywords": [
     "node",
