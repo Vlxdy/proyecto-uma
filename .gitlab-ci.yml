@@ -1,0 +1,49 @@
+stages:
+    - prebuild
+    - build
+    - test
+    - deploy
+cache:
+    paths:
+    - node_modules/
+    - src/configs/
+Verificando conexion:
+    stage: prebuild
+    script:
+        - echo 'verificando conexion con el servidor remoto...'
+    only:
+        - master
+Registrando certificado autofirmado del repositorio NPM:
+    stage: prebuild
+    script:
+        - npm set registry http://repositorio.agetic.gob.bo/nexus/repository/npmjs
+        - npm set strict-ssl false
+    only:
+        - master
+
+Instalando Dependencias:
+    stage: build
+    script:
+        - npm install
+    only:
+    - master
+Editando archivos de configuración:
+    stage: build
+    script:
+        - ansible-playbook /opt/ansible/configurar-servicio.yaml --connection=local --extra-vars="service_name=iop-servicios-mintrabajo-v1 service_path=$(pwd)"
+    only:
+        - master
+Ejecutando Test:
+    stage: test
+    script:
+        - echo 'hola'
+        - npm run test
+    only:
+        - master
+
+Publicando servicio:
+    stage: deploy
+    script:
+        - ansible-playbook /opt/ansible/desplegar-servicio.yaml --connection=local --extra-vars="service_name=iop-servicios-mintrabajo-v1 service_path=$(pwd) app_base_url=/fake/mintrabajo api_version=1 -vvv"
+    only:
+        - master
