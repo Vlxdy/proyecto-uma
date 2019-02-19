@@ -8,6 +8,7 @@ konga.MD
 /keys/**/*
 /.vscode/**/*
 launch.json
+package-lock.json
 # Logs
 **/*.log
 **/*.log.gz
