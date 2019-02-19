@@ -158,7 +158,7 @@ describe('Ruta de consumo', () => {
 
   describe('Obtener datos de los permisos complementarios de vehículos de un operador de transporte', () => {
     it('Debe devolver los últimos datos de permisos complementarios de un vehículo', (done) => {
-      request.get(`${configurations.app.baseUrl}/v${propiedades.datosServicio.version}/vehiculos/6830/permisos`)
+      request.get(`${configurations.app.baseUrl}/v${propiedades.datosServicio.version}/vehiculos/160/permisos`)
         .set('Accept', 'application/json')
         .expect(200)
         .end((err, res) => {
@@ -170,12 +170,12 @@ describe('Ruta de consumo', () => {
               estado: 'OK',
               numeroRegistro: '0',
               tipoVehiculo: 'CAMION',
-              placa: 'JPXD37',
+              placa: 'DJPT95',
               marca: 'VOLVO',
-              chasis: 'YV2A4B3C9TA256314',
-              modelo: '1996',
+              chasis: 'YV2A4DBC92A544331',
+              modelo: '2002',
               capacidadCarga: '14,00',
-              tipoCarroceria: 'BARANDA',
+              tipoCarroceria: 'PLATAFORMA',
               numeroEjes: '3',
               tipoAutorizacion: 'Alta',
             },
@@ -183,10 +183,10 @@ describe('Ruta de consumo', () => {
               estado: 'OK',
               numeroRegistro: '0',
               tipoVehiculo: 'REMOLQUE',
-              placa: 'GRFZ22',
-              marca: 'FRUEHAUF',
-              chasis: 'PW8S223046',
-              modelo: '2000',
+              placa: 'JC1256',
+              marca: 'GOREN',
+              chasis: '8834',
+              modelo: '1997',
               capacidadCarga: '13,00',
               tipoCarroceria: 'BARANDA',
               numeroEjes: '2',

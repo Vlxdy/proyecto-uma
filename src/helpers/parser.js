@@ -213,6 +213,27 @@ module.exports.obtenerRespuestaComplementariosVehiculos = (result) => {
   return permisos;
 };
 
+module.exports.obtenerRespuestaOperadoresRegistro = (result) => {
+  const operadores = [];
+  const valores = result.OperadoresRegistroAgeticResult.diffgram.DocumentElement;
+  let elementos = [];
+  if (valores.dtTmp instanceof Array) {
+    elementos = valores.dtTmp;
+  } else {
+    elementos.push(valores.dtTmp);
+  }
+  elementos.forEach((elemento) => {
+    const operador = {};
+    operador.estado = elemento.estado;
+    operador.sigla = elemento.sigla;
+    operador.numeroRegistro = elemento.numeroRegistro;
+    operador.nit = elemento.nit;
+    operador.razonSocial = elemento.razonSocial;
+    operadores.push(operador);
+  });
+  return operadores;
+};
+
 module.exports.obtenerRespuestaOperadores = (result) => {
   const operadores = [];
   const valores = result.OperadoresAgeticResult.diffgram.DocumentElement;
@@ -230,7 +251,7 @@ module.exports.obtenerRespuestaOperadores = (result) => {
     operador.razonSocial = elemento.razonSocial;
     operador.nombreComercial = elemento.nombreComercial;
     operador.sigla = elemento.sigla;
-    operador.tipoDocumento = elemento.tipoDocumento;
+    operador.tipoDocumento = elemento.ztipoDocumento;
     operador.maRa = elemento.maRa;
     operador.estaOperador = elemento.estaOperador;
     operador.tipoTransporte = elemento.tipoTransporte;

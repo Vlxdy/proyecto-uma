@@ -54,6 +54,7 @@
     "gulp-file": "^0.3.0",
     "gulp-replace": "^0.6.1",
     "mocha": "^4.0.1",
+    "nodemon": "^1.18.10",
     "supertest": "^3.0.0"
   }
 }

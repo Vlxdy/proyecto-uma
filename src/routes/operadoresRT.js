@@ -305,4 +305,56 @@ module.exports = (app) => {
         return res.json(respuesta);
       });
     });
+
+  /**
+   * @api {get} <base-url>/v<version-servicio>/operadoresRegistro OperadoresRegistro
+   * @apiDescription Proporciona datos de los operadores de transporte registrados
+   * @apiName obtenerOperadoresRegistro
+   * @apiGroup operadores
+   * @apiPermission Acceso a solicitud
+   * @apiVersion 1.0.0
+   *
+   * @apiParam {String} criterio Número de identificación tributaria del operador de transporte o Nombre registrado.
+   *
+   * @apiHeader {String} Authorization Token de acceso al servicio.
+   * @apiHeader {String} Authorization Token de acceso al servicio.
+   *
+   * @apiSuccess {Object[]} . Array que contiene la respuesta del servicio.
+   * @apiSuccess {String} .estado OK si existe el operador o ERR si no existe.
+   * @apiSuccess {String} .sigla Sigla del operador asignado por el VMT.
+   * @apiSuccess {String} .numeroRegistro Número de registro del operador asignado por el VMT.
+   * @apiSuccess {String} .nit Número de identificación tributaria del operador.
+   * @apiSuccess {String} .razonSocial Razón social del operador.
+   *
+   * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
+   * curl -X GET \
+   *      'http://127.0.0.1:8081/v1/operadoresRegistro?criterio=363356029' \
+   *      -H 'Authorization: Bearer <token-de-acceso>'
+   *
+   * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
+   * [
+   *   {
+   *     "estado": "OK",
+   *     "sigla": "REG",
+   *     "numeroRegistro": "1090",
+   *     "nit": "363356029",
+   *     "razonSocial": "EMPRESA DE TRANSPORTE PREMIUMBUS S.R.L."
+   *   }
+   * ]
+   *
+   * @apiSampleRequest https://interoperabilidad.agetic.gob.bo/fake
+   */
+
+  app.route(`${config.app.baseUrl}/v${props.datosServicio.version}/operadoresRegistro`)
+    .get((req, res) => {
+      logger.info(`[${config.app.baseUrl}/v${props.datosServicio.version}/operadores] Iniciando...`, req.route);
+      operadoresBL.obtenerOperadoresRegistro(req.query.criterio, (err, respuesta) => {
+        if (err) {
+          logger.error(`[${config.app.baseUrl}/v${props.datosServicio.version}/operadores] Error...`, err);
+          return res.status(err.statusCode || 500).json(err);
+        }
+        logger.info(`[${config.app.baseUrl}/v${props.datosServicio.version}/operadores] Respuesta`, respuesta);
+        return res.json(respuesta);
+      });
+    });
 };

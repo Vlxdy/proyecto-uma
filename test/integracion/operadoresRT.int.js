@@ -318,4 +318,35 @@ describe('Ruta de consumo', () => {
         });
     });
   });
+
+  describe('Obtener datos de operadores registrados segun criterio', () => {
+    it('Debe listar los registros asociados segun busqueda de criterio', (done) => {
+      request.get(`${configurations.app.baseUrl}/v${propiedades.datosServicio.version}/operadoresRegistro`)
+        .set('Accept', 'application/json')
+        .query({ criterio: 1 })
+        .expect(200)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+          expect(res.body).to.equal([
+            {
+              estado: 'OK',
+              sigla: 'EXT',
+              numeroRegistro: '0',
+              nit: '1',
+              razonSocial: 'FLORES VICENTE JAVIER',
+            },
+            {
+              estado: 'OK',
+              sigla: 'EXT',
+              numeroRegistro: '2',
+              nit: '1',
+              razonSocial: 'FLORES VICENTE JAVIER',
+            },
+          ]);
+          return done();
+        });
+    });
+  });
 });

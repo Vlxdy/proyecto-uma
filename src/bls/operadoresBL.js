@@ -134,6 +134,22 @@ module.exports = (app) => {
     });
   };
 
+  const obtenerOperadoresRegistro = (parametros, callback) => {
+    logger.info(`[${__filename}|obtenerOperadores] Parametros enviados`);
+    const parametrosWS = new ParametrosWS();
+    parametrosWS.url = servicesConfig.wsdlUso;
+    parametrosWS.body.vCriterio = parametros;
+    return operadoresWS.OperadoresRegistroAgetic(parametrosWS, (err, result) => {
+      if (err) {
+        logger.error(`[${__filename}|obtenerOperadores] Error al consumir el servicio de operadores`, err);
+        return callback({ mensaje: 'Error al consumir el servicio' });
+      }
+      const respuesta = parser.obtenerRespuestaOperadoresRegistro(result);
+      logger.debug(`[${__filename}|obtenerOperadores] Consumo exitoso`, respuesta);
+      return callback(err, respuesta);
+    });
+  };
+
   return {
     validarParametrosOperador,
     validarParametrosOperadorPermisos,
@@ -143,5 +159,6 @@ module.exports = (app) => {
     obtenerPermisosComplementarios,
     obtenerTramitePermisosComplementarios,
     obtenerOperadores,
+    obtenerOperadoresRegistro,
   };
 };
