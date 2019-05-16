@@ -291,3 +291,8 @@ module.exports.obtenerRespuestaVehiculos = (result) => {
   });
   return vehiculos;
 };
+
+module.exports.obtenerRespuestaCertificado = (result) => {
+  const valores = result.CertificadoCabocoAgeticResult.diffgram.DocumentElement;
+  return { estado: valores.dtTmp.estado };
+};

@@ -94,3 +94,16 @@ module.exports.OperadoresRegistroAgetic = (datosConsumo, callback) => {
     return client.OperadoresRegistroAgetic(datosConsumo.body, callback);
   });
 };
+
+module.exports.certificadoCaboco = (datosConsumo, callback) => {
+  logger.info(`[${__filename}|OperadoresRegistroAgetic] Consumiendo método de listado de operadores de transporte...`);
+  return soap.createClient(datosConsumo.url, opciones, (err, client) => {
+    logData(client);
+    if (err) {
+      return callback(err);
+    }
+    datosConsumo.header.Autenticacion.attributes = { xmlns: client.wsdl.definitions.$targetNamespace };
+    client.addSoapHeader(datosConsumo.header);
+    return client.CertificadoCabocoAgetic(datosConsumo.body, callback);
+  });
+};

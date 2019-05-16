@@ -30,7 +30,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'http://127.0.0.1:8081/v1/operadores/3457869016/representantes?numeroRegistro=1696' \
+   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/operadores/3457869016/representantes?numeroRegistro=1696' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -83,7 +83,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'http://127.0.0.1:8081/v1/operadores/3457869016/capacidades?numeroRegistro=1696' \
+   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/operadores/3457869016/capacidades?numeroRegistro=1696' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -129,7 +129,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'http://127.0.0.1:8081/v1/operadores/4312/permisos?pais=4' \
+   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/operadores/4312/permisos?pais=4' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -196,7 +196,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'http://127.0.0.1:8081/v1/operadores/1125%2F2017/tramites' \
+   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/operadores/1125%2F2017/tramites' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -256,7 +256,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'http://127.0.0.1:8081/v1/operadores' \
+   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/operadores' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -328,7 +328,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'http://127.0.0.1:8081/v1/operadoresRegistro?criterio=363356029' \
+   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/operadoresRegistro?criterio=363356029' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -354,6 +354,50 @@ module.exports = (app) => {
           return res.status(err.statusCode || 500).json(err);
         }
         logger.info(`[${config.app.baseUrl}/v${props.datosServicio.version}/operadores] Respuesta`, respuesta);
+        return res.json(respuesta);
+      });
+    });
+
+  /**
+   * @api {get} <base-url>/v<version-servicio>/certificados?certificado=:numCertificado&caboco=:numCaboco&fecha=:fecha Certificado caboco
+   * @apiDescription Proporciona estado de los certificados de los operadores de transporte registrados
+   * @apiName obtenerEstadoCertificado
+   * @apiGroup operadores
+   * @apiPermission Acceso a solicitud
+   * @apiVersion 1.0.0
+   *
+   * @apiParam {String} numCertificado  Número del certificado
+   * @apiParam {String} numCaboco  Número asignado en CABOCO a la empresa constructora
+   * @apiParam {String} fecha  Fecha en la que la CABOCO emitio el certificado
+   *
+   * @apiHeader {String} Authorization Token de acceso al servicio.
+   *
+   * @apiSuccess {Object} . Objecto que contiene la respuesta del servicio.
+   * @apiSuccess {String} .estado Describe el estado de la consulta. [Vigente, Caducado o Inexistente]
+   *
+   * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
+   * curl -X GET \
+   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/certificados?certificado=1&caboco=1&fecha=01/01/2019' \
+   *      -H 'Authorization: Bearer <token-de-acceso>'
+   *
+   * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
+   *   {
+   *     "estado": "Vigente",
+   *   }
+   *
+   * @apiSampleRequest https://interoperabilidad.agetic.gob.bo/fake
+   */
+
+  app.route(`${config.app.baseUrl}/v${props.datosServicio.version}/certificados`)
+    .get((req, res) => {
+      logger.info(`[${config.app.baseUrl}/v${props.datosServicio.version}/certificados] Iniciando...`, req.route);
+      const parametrosValidados = operadoresBL.validarParametrosCertificado(req.query);
+      operadoresBL.obtenerCertificadoCaboco(parametrosValidados, (err, respuesta) => {
+        if (err) {
+          logger.error(`[${config.app.baseUrl}/v${props.datosServicio.version}/certificados] Error...`, err);
+          return res.status(err.statusCode || 500).json(err);
+        }
+        logger.info(`[${config.app.baseUrl}/v${props.datosServicio.version}/certificados] Respuesta`, respuesta);
         return res.json(respuesta);
       });
     });

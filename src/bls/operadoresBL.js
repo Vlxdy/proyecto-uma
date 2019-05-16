@@ -37,6 +37,24 @@ module.exports = (app) => {
     return parametrosWS;
   };
 
+  const validarParametrosCertificado = (query) => {
+    const parametrosWS = new ParametrosWS();
+    if (!query.hasOwnProperty('certificado')) {
+      throw new CodeError('El parámetro "certificado" es necesario');
+    }
+    if (!query.hasOwnProperty('caboco')) {
+      throw new CodeError('El parámetro "caboco" es necesario');
+    }
+    if (!query.hasOwnProperty('fecha')) {
+      throw new CodeError('El parámetro "fecha" es necesario');
+    }
+
+    parametrosWS.body.vtxtNunCertificado = query.certificado;
+    parametrosWS.body.vtxtRegCaboco = query.caboco;
+    parametrosWS.body.vtxtFechaEmision = query.fecha;
+    return parametrosWS;
+  };
+
   const validarParametrosOperadorPermisos = (params, query) => {
     const parametrosWS = new ParametrosWS();
     if (!params.hasOwnProperty('documentoIdoneidad')) {
@@ -150,6 +168,22 @@ module.exports = (app) => {
     });
   };
 
+  const obtenerCertificadoCaboco = (parametros, callback) => {
+    logger.info(`[${__filename}|obtenerOperadores] Parametros enviados`);
+    const parametrosWS = new ParametrosWS();
+    parametrosWS.url = servicesConfig.wsdlUso;
+    parametrosWS.body = parametros.body;
+    return operadoresWS.certificadoCaboco(parametrosWS, (err, result) => {
+      if (err) {
+        logger.error(`[${__filename}|obtenerOperadores] Error al consumir el servicio de operadores`, err);
+        return callback({ mensaje: 'Error al consumir el servicio' });
+      }
+      const respuesta = parser.obtenerRespuestaCertificado(result);
+      logger.debug(`[${__filename}|obtenerOperadores] Consumo exitoso`, respuesta);
+      return callback(err, respuesta);
+    });
+  };
+
   return {
     validarParametrosOperador,
     validarParametrosOperadorPermisos,
@@ -160,5 +194,7 @@ module.exports = (app) => {
     obtenerTramitePermisosComplementarios,
     obtenerOperadores,
     obtenerOperadoresRegistro,
+    obtenerCertificadoCaboco,
+    validarParametrosCertificado,
   };
 };
