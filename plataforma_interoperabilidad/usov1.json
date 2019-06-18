@@ -187,6 +187,36 @@
         "fechaHasta": true
         }
       ]
+    },
+    {
+      "identificador": "operadoresRegistro",
+      "nombre": "Operadores Registro",
+      "descripcion": "Proporciona datos de los operadores de transporte registrados",
+      "idCatalogo": 97,
+      "verbo": "GET",
+      "url": "/operadoresRegistro?criterio=numeroCriterio",
+      "datosRespuesta": [
+        {
+        "estado": true,
+        "sigla": true,
+        "numeroRegistro": true,
+        "nit": true,
+        "razonSocial": true
+        }
+      ]
+    },
+    {
+      "identificador": "certificadoCaboco",
+      "nombre": "Certificado Caboco",
+      "descripcion": "Proporciona estado de los certificados de los operadores de transporte registrados",
+      "idCatalogo": 96,
+      "verbo": "GET",
+      "url": "/certificados?certificado=:numCertificado&caboco=:numCaboco&fecha=:fecha",
+      "datosRespuesta": [
+        {
+        "estado": true
+        }
+      ]
     }
   ]
 }
