@@ -20,3 +20,6 @@ src/configurations/services.js
 
 # Optional REPL history
 .node_repl_history
+
+#archivo de configuracion
+src/configurations/app.js
