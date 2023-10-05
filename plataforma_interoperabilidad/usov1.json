@@ -53,7 +53,7 @@
       "descripcion": "Proporciona datos del trámite de permiso complementario de un operador de transporte",
       "idCatalogo": 36,
       "verbo": "GET",
-      "url": "/v1/operadores/:codigoIdentificacion/tramites",
+      "url": "/v1/operadores/tramites?codigoIdentificacion=:codigoIdentificacion",
       "datosRespuesta": {
         "estado": true,
         "pais": true,

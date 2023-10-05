@@ -171,7 +171,7 @@ module.exports = (app) => {
     });
 
   /**
-   * @api {get} <base-url>/v<version-servicio>/operadores/:codigoIdentificacion/tramites Trámites
+   * @api {get} <base-url>/v<version-servicio>/operadores/tramites?codigoIdentificacion=:codigoIdentificacion Trámites
    * @apiDescription Proporciona datos del trámite de permiso complementario de un operador de transporte
    * @apiName obtenerTramites
    * @apiGroup operadores
@@ -196,7 +196,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/operadores/1125%2F2017/tramites' \
+   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/operadores/tramites?codigoIdentificacion=1474/2017' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -216,10 +216,10 @@ module.exports = (app) => {
    *
    * @apiSampleRequest https://interoperabilidad.agetic.gob.bo/fake
    */
-  app.route(`${config.app.baseUrl}/v${props.datosServicio.version}/operadores/:codigoIdentificacion/tramites`)
+  app.route(`${config.app.baseUrl}/v${props.datosServicio.version}/operadores/tramites`)
     .get((req, res) => {
       logger.info(`[${config.app.baseUrl}/v${props.datosServicio.version}/operadores/:codigoIdentificacion/tramites] Iniciando...`, req.route);
-      const parametrosValidados = operadoresBL.validarParametrosOperadorTramites(req.params);
+      const parametrosValidados = operadoresBL.validarParametrosOperadorTramites(req.query);
       operadoresBL.obtenerTramitePermisosComplementarios(parametrosValidados, (err, respuesta) => {
         if (err) {
           logger.error(`[${config.app.baseUrl}/v${props.datosServicio.version}/operadores/:codigoIdentificacion/tramites] Error...`, err);
