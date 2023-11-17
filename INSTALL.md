@@ -63,8 +63,12 @@ $ cp services.js.example services.js
   Cambiar las configuraciones con los accesos al servicio ejemplo
 ```js
 module.exports = {
-  urlServicio: 'urrl/del/servicio',
-  puerto: '3020', // Numero de puerto en el que se va a desplegar el cliente
+  usuario: 'user', // usuario proporcionado por USO
+  clave: '123@abc',//clave del usuario 
+  wsdl: '/url/del/servicio',
+  wsdlVehiculos: '/url/del/servicio/vehículos',
+  wsdlUso:'/url/del/servicio/uso',
+  puerto:'3020', // Numero de puerto en el que se va a desplegar el cliente
 };
 ```
 
@@ -78,6 +82,8 @@ $ cp app.js.example all.js
 ```js
 module.exports = {
   baseUrl: '/fake/uso',   // modificar la url por la cual se expone el servicio (fake ambiente de pruebas)
+  domain: 'pagos.agetic.gob.bo',
+  institution: 'AGETIC',
 };
 
 ```

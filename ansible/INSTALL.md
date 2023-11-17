@@ -24,12 +24,12 @@ $ sudo apt-get install ansible
 Crear el siguiente directorio
 
 ```shell
-$ sudo mkdir /opt/servicios/iop-servicios-sabsa-v1/vars
+$ sudo mkdir /opt/servicios/iop-servicios-uso-v1/vars
 ```
 
 Crear el archivo de configuración general de la aplicación con las variables a usarse en el ambiente:
 ```shell
-$ sudo vim /opt/servicios/iop-servicios-sabsa-v1/vars/vault.yaml
+$ sudo vim /opt/servicios/iop-servicios-uso-v1/vars/vault.yaml
 ```
 El archivo vault.yaml creado debe contener todas las configuraciones necesarias para la recuperación de credenciales:
 
