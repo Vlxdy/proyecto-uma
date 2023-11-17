@@ -3,13 +3,13 @@ const apidoc = require('gulp-api-doc');
 const propiedades = require('./package.json');
 const replace = require('gulp-replace');
 const file = require('gulp-file');
-const configs = require('./src/configurations/config');
+const app = require('./src/configurations/app');
 
 // información que se necesita para generar el índice de la documentación
 const info = {
   descripcion: propiedades.datosServicio.descripcion,
   nombre: propiedades.description,
-  url: `${configs().app.baseUrl}/v${propiedades.datosServicio.version}`,
+  url: `${app.baseUrl}/v${propiedades.datosServicio.version}`,
 };
 
 gulp.task('apidoc', () => {
@@ -19,7 +19,7 @@ gulp.task('apidoc', () => {
     }))
     .pipe(replace('<version-servicio>', propiedades.datosServicio.version))
     .pipe(replace('<version-deploy>', propiedades.version))
-    .pipe(replace('<base-url>', configs().app.baseUrl))
+    .pipe(replace('<base-url>', app.baseUrl))
     .pipe(replace('<nombre-entidad-servicio>', propiedades.datosServicio.entidad))
     .pipe(gulp.dest('public'));
 });
@@ -30,4 +30,4 @@ gulp.task('createinfo', () => {
     .pipe(gulp.dest('public'));
 });
 
-gulp.task('doc', ['apidoc', 'createinfo']);
+gulp.task('doc', gulp.series('apidoc', 'createinfo'));

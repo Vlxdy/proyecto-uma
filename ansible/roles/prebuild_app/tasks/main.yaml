@@ -1,0 +1,51 @@
+--- # instalar paquetes necesarios
+- name: Instalar paquetes básicos necesarios
+  apt:
+    name: [curl, wget, apt-transport-https, dirmngr, gnupg, ca-certificates]
+    state: present
+
+- name: Descargar nodejs
+  get_url:
+    url: https://deb.nodesource.com/setup_18.x
+    dest: /tmp/setup_18.x.sh
+    mode: 777
+
+- name: Preparar la instalación de nodejs
+  command: sh /tmp/setup_18.x.sh
+
+- name: Instalar nodejs
+  apt:
+    name: nodejs
+    state: present
+
+- name : Instalar PM2
+  npm:
+    name: pm2
+    global: yes
+    production: yes
+    state: present
+
+- name: Instalar nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: Instalar build-essential
+  apt:
+    name: build-essential
+    state: present
+
+- name: Registrar el directorio de artefactos
+  stat:
+    path: '{{ configPath }}/builds'
+  register: artifactsDir
+
+- name: Crear el directorio de artefactos
+  file:
+    path: '{{ configPath }}/builds'
+    owner: gitlab-runner
+    group: gitlab-runner
+    state: directory
+    mode: 0755
+  when: artifactsDir.stat.isdir is not defined
+

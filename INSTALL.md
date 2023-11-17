@@ -3,89 +3,129 @@
 ** Cambiar los parámetros que se encuentran entre < > **
 ** "..." indican que existen otras líneas en el archivo **
 
-1. Descargar nodejs (versión 6.x.x)
-  ```
-  $ sudo apt-get install curl
-  $ curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-  $ sudo apt-get install -y nodejs
-  ```
+## Requerimientos 
+
+1. Descargar nodejs (versión 18.x.x)
+
+```bash
+$ sudo apt-get install curl
+$ curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+$ sudo apt-get install -y nodejs
+```
+2. Instalar Nginx con el siguiente comando:
+
+```bash
+$ sudo apt-get install nginx
+```
+
+3. Instalar PM2
+
+```bash
+$ sudo apt update
+$ sudo npm install --global pm2
+```
+Iniciar detección automática de configuración
+
+```bash
+$ pm2 startup
+```
+Ejecutar el comando devuelto por la anterior instrucción. por ejemplo
+```bash
+$ sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u usuario --hp /home/usuario
+```
+
+4. Instalar Build-essential
+```bash
+$ sudo apt-get install build-essential
+```
+## Instalación del Proyecto
+
+1. Clonar el repositorio:
+
+```bash
+$ git clone https://gitlab.agetic.gob.bo/agetic/iop/iop-servicios-<plantilla>-v1.git
+$ cd iop-servicios-<plantilla>-v1
+```
 
 2. En la raíz del proyecto instalar las dependencias necesarias
-  ```
-  $ npm install
-  ```
 
-3. La configuración de accesos del servicio se encuentran en el archivo *src/configurations/service.js*, la estructura es la siguiente:
+```bash
+$ cd iop-servicios-<plantilla>-v1
+$ npm install
+```
+
+3. Archivo de acceso al servicio, copiar el archivo
+
+```bash
+$ cd src/configurations
+$ cp services.js.example services.js
   ```
-  {
-      usuario: 'nombreUsuario', // usuario proporcionado por el publicador
-      clave: 'passwod', // password del usuario proporcionado
-      wsdl: 'http://dominio.entidad/servicio', // endpoint para los servicios de operadores
-      wsdlVehiculos: 'http://dominio.entidad/servicio', // endpoint para los servicios de vehículos
-  }
+  Cambiar las configuraciones con los accesos al servicio ejemplo
+```js
+module.exports = {
+  urlServicio: 'urrl/del/servicio',
+  puerto: '3020', // Numero de puerto en el que se va a desplegar el cliente
+};
+```
+
+4. Archivo de despliegue, copiar el archivo
+
+```bash
+$ cd src/configurations
+$ cp app.js.example all.js
   ```
+  Cambiar las configuraciones con los accesos al servicio ejemplo
+```js
+module.exports = {
+  baseUrl: '/fake/uso',   // modificar la url por la cual se expone el servicio (fake ambiente de pruebas)
+};
 
-4. Mover ó copiar el proyecto a */var/www* con el nombre ****nombre-servicio****
-  ```
-  $ sudo cp -R <nombre-carpeta> /var/www/****nombre-servicio****
-  ```
+```
 
-5. Ahora, se instalará nginx con phusion passenger para publicar la aplicación. Para mayor información, revisar:
-[Documentación de Nginx](https://www.nginx.com/resources/wiki/ "NGINX"), [Documentación de Passenger](https://www.phusionpassenger.com/documentation_and_support "Passenger").
+5. Mover ó copiar el proyecto a */opt/clientes_iop* con el nombre  *nombre-servicio*
 
-  1. Para instalar passenger:
-    ```
-    $ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7
-    $ sudo apt-get install -y apt-transport-https ca-certificates
-    $ sudo sh -c 'echo deb https://oss-binaries.phusionpassenger.com/apt/passenger jessie main > /etc/apt/sources.list.d/passenger.list'
-    $ sudo apt-get update
-    $ sudo apt-get install -y --force-yes nginx-extras passenger
-    ```
+```bash
+$ sudo cp -R <nombre-carpeta> /opt/clientes_iop<nombre-servicio>
+```
 
-  2. Configurar nginx para habilitar passenger, se debe modificar el archivo /etc/nginx/nginx.conf, y descomentar la línea *# include /etc/nginx/passenger.conf;* (quitar #).
-    ```
-    ...
-    include /etc/nginx/passenger.conf;
-    ...
-    ```
+6. Iniciar el proyecto con PM2
 
-  3. Para verificar que se haya configurado correctamente:
-    - Reiniciar el servicio
-    ```
-    $ sudo service nginx restart
-    ```
-    - Si todo esta correcto, el siguiente comando devolvera *Everything looks good*:
-    ```
-    $ sudo /usr/bin/passenger-config validate-install
-    ```
-    - El siguiente comando no debe mostrar errores:
-    ```
-    $ sudo /usr/sbin/passenger-memory-stats
-    ```
+```bash
+$ pm2 start npm --name iop-servicios-uso-v1-3020 -- run start 
+$ pm2 save
+```
 
-  4. Modificar el archivo */etc/nginx/sites-enabled/default* con el siguiente contenido (*Cambiar servidor.com por el dominio o la ip del servidor, o 0.0.0.0 para que escuche en cualquier dirección*):
+# Configuración de Nginx como proxy con PM2
 
-  ```
-  server {
-          listen 80;
-          server_name servidor.com;
-          root /var/www;
+7. Modificar el archivo */etc/nginx/sites-available/default* con el siguiente contenido (*Cambiar servidor.com por el dominio o la ip del servidor, o 0.0.0.0 para que escuche en cualquier dirección*):
 
-          location ~ ^/****nombre-servicio****/****version****(/.*|$) {
-                    alias /var/www/****nombre-servicio****/public$1;
-                    passenger_base_uri /****nombre-servicio****;
-                    passenger_app_root /var/www/****nombre-servicio****;
-                    passenger_document_root /var/www/****nombre-servicio****/public;
-                    passenger_enabled on;
-                    passenger_app_env production;
-                    passenger_app_type node;
-                    passenger_startup_file index.js;
-                    passenger_nodejs /usr/bin/node;
-          }
-  }
-  ```
+```conf
+server {
+    listen 80;
+    server_name 0.0.0.0;
 
-  5. Ahora para reiniciar el servicio con las configuraciones realizadas:
-  ```
-  $ sudo service nginx restart
-  ```
+    include /etc/nginx/sites-available/*.conf;
+}
+```
+8. Crear un archivo *nombre-servicio.conf*  en el directorio */etc/nginx/sites-available/*
+
+```conf
+location ~ ^/fake/uso/v1(/.*|$) {     // url base del archivo  src/configurations/app.js  (fake ambiente de pruebas)
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $http_host;
+    
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    
+        proxy_pass http://localhost:3020;  //puerto asignado en el paso 3
+        proxy_redirect off;
+        proxy_read_timeout 240s;
+```
+
+9. Ahora para reiniciar el servicio con las configuraciones realizadas:
+
+```bash
+$ sudo systemctl restart nginx 
+```

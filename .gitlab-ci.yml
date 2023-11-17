@@ -1,49 +1,165 @@
 stages:
-    - prebuild
-    - build
-    - test
-    - deploy
-cache:
+  - prebuild
+  - build
+  - release
+  - deploy
+  - clear
+variables:
+    CONF_DIR: /opt/servicios/$CI_PROJECT_NAME
+Configurar servidor para despliegue de la aplicación (develop):
+  stage: prebuild
+  tags:
+    - runner-develop
+  script:
+    - sudo rm -rf $CONF_DIR/ansible && sudo cp ./ansible -R $CONF_DIR/ansible
+    - ansible-playbook $CONF_DIR/ansible/0_prebuilding.yaml --extra-vars="projectName=$CI_PROJECT_NAME projectPath=$(pwd) configPath=$CONF_DIR"
+  only:
+    - develop
+
+Construir la aplicación con la configuración del ambiente (develop):
+  stage: build
+  tags:
+    - runner-develop
+  script:
+    - ansible-playbook $CONF_DIR/ansible/1_install.yaml  --extra-vars="projectName=$CI_PROJECT_NAME projectPath=$(pwd)"
+  only:
+    - develop
+  cache:
     paths:
-    - node_modules/
-    - src/configs/
-Verificando conexion:
-    stage: prebuild
-    script:
-        - echo 'verificando conexion con el servidor remoto...'
-    only:
-        - master
-Registrando certificado autofirmado del repositorio NPM:
-    stage: prebuild
-    script:
-        - npm set registry http://repositorio.agetic.gob.bo/nexus/repository/npmjs
-        - npm set strict-ssl false
-    only:
-        - master
+      - ./node_modules/
 
-Instalando Dependencias:
-    stage: build
-    script:
-        - npm install
-    only:
+Generar Release de la aplicación (develop):
+  stage: release
+  tags:
+    - runner-develop
+  script:
+    - ansible-playbook $CONF_DIR/ansible/3_releasing.yaml --extra-vars="projectName=$CI_PROJECT_NAME projectPath=$(pwd) configPath=$CONF_DIR projectCommitSha=$CI_COMMIT_SHORT_SHA"
+  only:
+    - develop
+  cache:
+    paths:
+      - ./node_modules/
+
+Desplegar la aplicación (develop):
+  stage: deploy
+  tags:
+    - runner-develop
+  script:
+    - sudo ansible-playbook  $CONF_DIR/ansible/4_deploying.yaml --extra-vars="projectName=$CI_PROJECT_NAME projectPath=$(pwd) projectCommitSha=$CI_COMMIT_SHORT_SHA configPath=$CONF_DIR"
+  only:
+    - develop
+
+Limpiar (develop):
+  stage: clear
+  tags:
+    - runner-develop
+  script:
+    - sudo rm -rf /home/gitlab-runner/cache && sudo rm -rf /home/gitlab-runner/builds && sudo rm -rf $CONF_DIR/ansible && sudo rm -rf $CONF_DIR/builds && sudo rm -rf /opt/clientes_iop/$CI_PROJECT_NAME/ansible
+  only:
+    - develop
+
+
+Configurar servidor para despliegue de la aplicación (test):
+  stage: prebuild
+  tags:
+    - runner-test
+  script:
+    - sudo rm -rf $CONF_DIR/ansible && sudo cp ./ansible -R $CONF_DIR/ansible
+    - ansible-playbook $CONF_DIR/ansible/0_prebuilding.yaml --extra-vars="projectName=$CI_PROJECT_NAME projectPath=$(pwd) configPath=$CONF_DIR"
+  only:
+    - test
+
+Construir la aplicación con la configuración del ambiente (test):
+  stage: build
+  tags:
+    - runner-test
+  script:
+    - ansible-playbook $CONF_DIR/ansible/1_install.yaml  --extra-vars="projectName=$CI_PROJECT_NAME projectPath=$(pwd)"
+  only:
+    - test
+  cache:
+    paths:
+      - ./node_modules/
+
+Generar Release de la aplicación (test):
+  stage: release
+  tags:
+    - runner-test
+  script:
+    - ansible-playbook $CONF_DIR/ansible/3_releasing.yaml --extra-vars="projectName=$CI_PROJECT_NAME projectPath=$(pwd) configPath=$CONF_DIR projectCommitSha=$CI_COMMIT_SHORT_SHA"
+  only:
+    - test
+  cache:
+    paths:
+      - ./node_modules/
+
+Desplegar la aplicación (test):
+  stage: deploy
+  tags:
+    - runner-test
+  script:
+    - sudo ansible-playbook  $CONF_DIR/ansible/4_deploying.yaml --extra-vars="projectName=$CI_PROJECT_NAME projectPath=$(pwd) projectCommitSha=$CI_COMMIT_SHORT_SHA configPath=$CONF_DIR"
+  only:
+    - test
+
+Limpiar (test):
+  stage: clear
+  tags:
+    - runner-test
+  script:
+    - sudo rm -rf /home/gitlab-runner/cache && sudo rm -rf /home/gitlab-runner/builds && sudo rm -rf $CONF_DIR/ansible && sudo rm -rf $CONF_DIR/builds && sudo rm -rf /opt/clientes_iop/$CI_PROJECT_NAME/ansible
+  only:
+    - test
+
+
+Configurar servidor para despliegue de la aplicación (master):
+  stage: prebuild
+  tags:
+    - runner-master
+  script:
+    - sudo rm -rf $CONF_DIR/ansible && sudo cp ./ansible -R $CONF_DIR/ansible
+    - ansible-playbook $CONF_DIR/ansible/0_prebuilding.yaml --extra-vars="projectName=$CI_PROJECT_NAME projectPath=$(pwd) configPath=$CONF_DIR"
+  only:
     - master
-Editando archivos de configuración:
-    stage: build
-    script:
-        - ansible-playbook /opt/ansible/configurar-servicio.yaml --connection=local --extra-vars="service_name=iop-servicios-mintrabajo-v1 service_path=$(pwd)"
-    only:
-        - master
-Ejecutando Test:
-    stage: test
-    script:
-        - echo 'hola'
-        - npm run test
-    only:
-        - master
 
-Publicando servicio:
-    stage: deploy
-    script:
-        - ansible-playbook /opt/ansible/desplegar-servicio.yaml --connection=local --extra-vars="service_name=iop-servicios-mintrabajo-v1 service_path=$(pwd) app_base_url=/fake/mintrabajo api_version=1 -vvv"
-    only:
-        - master
+Construir la aplicación con la configuración del ambiente (master):
+  stage: build
+  tags:
+    - runner-master
+  script:
+    - ansible-playbook $CONF_DIR/ansible/1_install.yaml  --extra-vars="projectName=$CI_PROJECT_NAME projectPath=$(pwd)"
+  only:
+    - master
+  cache:
+    paths:
+      - ./node_modules/
+
+Generar Release de la aplicación (master):
+  stage: release
+  tags:
+    - runner-master
+  script:
+    - ansible-playbook $CONF_DIR/ansible/3_releasing.yaml --extra-vars="projectName=$CI_PROJECT_NAME projectPath=$(pwd) configPath=$CONF_DIR projectCommitSha=$CI_COMMIT_SHORT_SHA"
+  only:
+    - master
+  cache:
+    paths:
+      - ./node_modules/
+
+Desplegar la aplicación (master):
+  stage: deploy
+  tags:
+    - runner-master
+  script:
+    - sudo ansible-playbook  $CONF_DIR/ansible/4_deploying.yaml --extra-vars="projectName=$CI_PROJECT_NAME projectPath=$(pwd) projectCommitSha=$CI_COMMIT_SHORT_SHA configPath=$CONF_DIR"
+  only:
+    - master
+
+Limpiar (master):
+  stage: clear
+  tags:
+    - runner-master
+  script:
+    - sudo rm -rf /home/gitlab-runner/cache && sudo rm -rf /home/gitlab-runner/builds && sudo rm -rf $CONF_DIR/ansible && sudo rm -rf $CONF_DIR/builds && sudo rm -rf /opt/clientes_iop/$CI_PROJECT_NAME/ansible
+  only:
+    - master

@@ -1,5 +1,5 @@
 module.exports = {
-  baseUrl: '',
+  baseUrl: '/fake/uso',
   domain: 'pagos.agetic.gob.bo',
   institution: 'AGETIC',
 };

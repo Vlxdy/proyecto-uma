@@ -1,0 +1,29 @@
+- name: establecer variables de configuracion
+  include_vars:
+    file: '{{ configPath }}/vars/configfile.json'
+    name: config
+
+- name: configurando archivo app.js
+  template:
+    src: '{{ projectPath }}/src/configurations/app.js.example'
+    dest: '{{ projectPath }}/src/configurations/app.js'
+
+- name: configurando archivo service.js
+  template:
+    src: '{{ projectPath }}/src/configurations/services.js.example'
+    dest: '{{ projectPath }}/src/configurations/services.js'
+
+
+- name: empaquetar el proyecto
+  archive:
+    path: '{{ projectPath }}'
+    dest: '{{ configPath }}/builds/{{projectName}}-{{ projectCommitSha }}.tar'
+    exclude_path:
+      - '.git'
+      - 'api_doc_template'
+      - 'plataforma_interoperabilidad'
+      - 'ansible'
+      - 'logs/*'
+      - 'datos'
+      - 'openapi.yml'
+      - '.*'

@@ -1,0 +1,33 @@
+--- # Obtener credenciales desde un vault remoto
+- name: Establecer dominio y credenciales de Vault
+  include_vars:
+    file: '{{ configPath }}/vars/vault.yaml'
+    name: vault
+
+- name: Realizar solicitud de credenciales para configuracion de aplicaciones
+  uri:
+    url: '{{ vault.VAULT_URL }}'
+    method: GET
+    headers:
+      X-Vault-Token: '{{ vault.VAULT_TOKEN }}'
+  register: response
+
+- name: creando archivo de configuracion en formato JSON
+  copy: content="{{ response.json.data }}" dest={{ configPath }}/vars/configfile.json
+
+- name: establecer variables de configuracion
+  include_vars:
+    file: '{{ configPath }}/vars/configfile.json'
+    name: config
+
+- name: Verificar si el puerto está libre
+  shell: "netstat -an | grep '{{ config.PUERTO }} ' | grep LISTEN"
+  ignore_errors: yes
+  register: port_status
+
+- name: Detener el playbook si el puerto está ocupado
+  fail:
+    msg:
+      - "El puerto {{ config.PUERTO }} está en uso. Cambie de puerto e inténtelo de nuevo."
+      - "El estado del puerto es: {{ port_status.stdout }}"
+  when: port_status.stdout is search('LISTEN')

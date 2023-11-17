@@ -1,0 +1,6 @@
+--- # Instalación y configuración del software para CI/CD en servidor Debian 12
+- hosts: localhost
+  become: yes
+  become_user: gitlab-runner
+  roles:
+    - install_app

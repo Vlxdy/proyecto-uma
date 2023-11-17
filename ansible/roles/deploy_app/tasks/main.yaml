@@ -1,0 +1,60 @@
+--- # Desplegar una app con nginx en Debian 12
+
+
+- name: establecer variables de configuracion
+  include_vars:
+    file: '{{ configPath }}/vars/configfile.json'
+    name: config
+
+- name: Registrar el directorio actual de la app
+  stat:
+    path: /opt/clientes_iop/{{ projectName }}
+  register: appDir
+
+- name: Crear el directorio de la app
+  file:
+    path: /opt/clientes_iop/{{ projectName }}
+    owner: gitlab-runner
+    group: gitlab-runner
+    state: directory
+  when: appDir.stat.isdir is not defined
+
+- name: Traer el comprimido de la app construida del servidor de gitlab-runner
+  copy:
+    src: '{{ configPath }}/builds/{{ projectName }}-{{ projectCommitSha }}.tar'
+    dest: '/tmp/{{ projectName }}.tar'
+
+- name: Descomprimir el archivo en /opt/clientes_iop
+  unarchive:
+    src: '/tmp/{{ projectName }}.tar'
+    dest: /opt/clientes_iop
+    remote_src: yes
+
+- name: Cambiar el owner y group para el directorio de la app
+  file:
+    path: /opt/clientes_iop/{{ projectName }}
+    owner: gitlab-runner
+    group: gitlab-runner
+    recurse: yes
+
+- name: Ejecutar la aplicación con PM2
+  shell: |
+      pm2 start npm --name {{ projectName }}-{{ config.PUERTO }} -- run start
+      pm2 save
+  args:
+    chdir: /opt/clientes_iop/{{ projectName }}
+
+- name: Configurar el archivo default de nginx
+  template:
+    src: default.j2
+    dest: /etc/nginx/sites-enabled/default
+
+- name: Copiar la configuración de la app en nginx
+  template:
+    src: nginx-app.conf.j2
+    dest: '/etc/nginx/sites-available/{{ projectName }}.conf'
+
+- name: Reinicio de nginx
+  service:
+    name: nginx
+    state: restarted

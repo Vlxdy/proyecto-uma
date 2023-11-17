@@ -1,0 +1,11 @@
+--- # Instalación y configuración del software para CI/CD en servidor Debian 12
+- hosts: localhost
+  become: yes
+  become_user: root
+  roles:
+    - prebuild_app
+  tasks:
+  - name: Solicitar credenciales de despliegue
+    import_role:
+      name: prebuild_app
+      tasks_from: get_conf
