@@ -6,57 +6,57 @@ stages:
   - clear
 variables:
     CONF_DIR: /opt/servicios/$CI_PROJECT_NAME
-Configurar servidor para despliegue de la aplicación (develop):
+Configurar servidor para despliegue de la aplicación (development):
   stage: prebuild
   tags:
-    - runner-develop
+    - runner-development
   script:
     - sudo rm -rf $CONF_DIR/ansible && sudo cp ./ansible -R $CONF_DIR/ansible
     - ansible-playbook $CONF_DIR/ansible/0_prebuilding.yaml --extra-vars="projectName=$CI_PROJECT_NAME projectPath=$(pwd) configPath=$CONF_DIR"
   only:
-    - develop
+    - development
 
-Construir la aplicación con la configuración del ambiente (develop):
+Construir la aplicación con la configuración del ambiente (development):
   stage: build
   tags:
-    - runner-develop
+    - runner-development
   script:
     - ansible-playbook $CONF_DIR/ansible/1_install.yaml  --extra-vars="projectName=$CI_PROJECT_NAME projectPath=$(pwd)"
   only:
-    - develop
+    - development
   cache:
     paths:
       - ./node_modules/
 
-Generar Release de la aplicación (develop):
+Generar Release de la aplicación (development):
   stage: release
   tags:
-    - runner-develop
+    - runner-development
   script:
     - ansible-playbook $CONF_DIR/ansible/3_releasing.yaml --extra-vars="projectName=$CI_PROJECT_NAME projectPath=$(pwd) configPath=$CONF_DIR projectCommitSha=$CI_COMMIT_SHORT_SHA"
   only:
-    - develop
+    - development
   cache:
     paths:
       - ./node_modules/
 
-Desplegar la aplicación (develop):
+Desplegar la aplicación (development):
   stage: deploy
   tags:
-    - runner-develop
+    - runner-development
   script:
     - sudo ansible-playbook  $CONF_DIR/ansible/4_deploying.yaml --extra-vars="projectName=$CI_PROJECT_NAME projectPath=$(pwd) projectCommitSha=$CI_COMMIT_SHORT_SHA configPath=$CONF_DIR"
   only:
-    - develop
+    - development
 
-Limpiar (develop):
+Limpiar (development):
   stage: clear
   tags:
-    - runner-develop
+    - runner-development
   script:
     - sudo rm -rf /home/gitlab-runner/cache && sudo rm -rf /home/gitlab-runner/builds && sudo rm -rf $CONF_DIR/ansible && sudo rm -rf $CONF_DIR/builds && sudo rm -rf /opt/clientes_iop/$CI_PROJECT_NAME/ansible
   only:
-    - develop
+    - development
 
 
 Configurar servidor para despliegue de la aplicación (test):
