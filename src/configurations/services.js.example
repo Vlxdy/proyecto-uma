@@ -1,7 +1,8 @@
 module.exports = {
-  usuario: 'nombreUsuario',
-  clave: 'passwod',
-  wsdl: 'http://dominio.entidad/servicio',
-  wsdlVehiculos: 'http://dominio.entidad/servicio',
-  wsdlUso: 'http://dominio.entidad/servicio',
+  usuario: '{{ config.USUARIO }}',
+  clave: '{{ config.CLAVE }}',
+  wsdl: '{{ config.WSDL }}',
+  wsdlVehiculos: '{{ config.WSDL_VEHICULOS }}',
+  wsdlUso:'{{ config.WSDL_USO }}',
+  puerto:'{{ config.PUERTO }}',
 };
