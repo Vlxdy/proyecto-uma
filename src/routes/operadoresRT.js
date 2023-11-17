@@ -20,7 +20,7 @@ module.exports = (app) => {
    * @apiParam {Integer} nit Número de identificación tributaria del operador de transporte.
    * @apiParam {Integer} numeroRegistro Número del BOTIC del operador de tranporte asignado por el VMT.
    *
-   * @apiHeader {String} Authorization Token de acceso al servicio.
+   * @apiHeader {String} Authorization Token de acceso proporcionado por la Plataforma de Interoperabilidad.
    *
    * @apiSuccess {Object[]} . Array que contiene la respuesta del servicio.
    * @apiSuccess {String} .estado OK si existe el operador o ERR si no existe.
@@ -49,7 +49,6 @@ module.exports = (app) => {
    *     }
    * ]
    *
-   * @apiSampleRequest https://interoperabilidad.agetic.gob.bo/fake
    */
   app.route(`${config.app.baseUrl}/v${props.datosServicio.version}/operadores/:nit/representantes`)
     .get((req, res) => {
@@ -76,7 +75,7 @@ module.exports = (app) => {
    * @apiParam {Integer} nit Número de identificación tributaria del operador de transporte.
    * @apiParam {Integer} numeroRegistro Número del BOTIC del operador de tranporte asignado por el VMT.
    *
-   * @apiHeader {String} Authorization Token de acceso al servicio.
+   * @apiHeader {String} Authorization Token de acceso proporcionado por la Plataforma de Interoperabilidad.
    *
    * @apiSuccess {String} estado OK si existe el operador o ERR si no existe.
    * @apiSuccess {String} capacidadSocios H si el operador está habilitado o S si está suspendido.
@@ -92,7 +91,6 @@ module.exports = (app) => {
    *     "capacidadSocios": "H"
    * }
    *
-   * @apiSampleRequest https://interoperabilidad.agetic.gob.bo/fake
    */
   app.route(`${config.app.baseUrl}/v${props.datosServicio.version}/operadores/:nit/capacidades`)
     .get((req, res) => {
@@ -119,7 +117,7 @@ module.exports = (app) => {
    * @apiParam {String} documentoIdoneidad Número de documento de idoneidad del operador de transporte.
    * @apiParam {Integer} pais Código de país de origen del operador de transporte.
    *
-   * @apiHeader {String} Authorization Token de acceso al servicio.
+   * @apiHeader {String} Authorization Token de acceso proporcionado por la Plataforma de Interoperabilidad.
    *
    * @apiSuccess {Object[]} . Array que contiene la respuesta del servicio.
    * @apiSuccess {String} .estado OK si existe el operador o ERR si no existe.
@@ -154,7 +152,6 @@ module.exports = (app) => {
    *     }
    * ]
    *
-   * @apiSampleRequest https://interoperabilidad.agetic.gob.bo/fake
    */
   app.route(`${config.app.baseUrl}/v${props.datosServicio.version}/operadores/:documentoIdoneidad/permisos`)
     .get((req, res) => {
@@ -180,7 +177,7 @@ module.exports = (app) => {
    *
    * @apiParam {String} codigoIdenticacion Número asignado por el VMT al trámite de permiso complementario del operador de transporte.
    *
-   * @apiHeader {String} Authorization Token de acceso al servicio.
+   * @apiHeader {String} Authorization Token de acceso proporcionado por la Plataforma de Interoperabilidad.
    *
    * @apiSuccess {String} estado OK si existe el operador o ERR si no existe.
    * @apiSuccess {String} pais País origen del operador de transporte.
@@ -214,7 +211,6 @@ module.exports = (app) => {
    *     "razonSocial": "CECILIA MIRANDA FLORES"
    * }
    *
-   * @apiSampleRequest https://interoperabilidad.agetic.gob.bo/fake
    */
   app.route(`${config.app.baseUrl}/v${props.datosServicio.version}/operadores/tramites`)
     .get((req, res) => {
@@ -238,7 +234,7 @@ module.exports = (app) => {
    * @apiPermission Acceso a solicitud
    * @apiVersion 1.0.0
    *
-   * @apiHeader {String} Authorization Token de acceso al servicio.
+   * @apiHeader {String} Authorization Token de acceso proporcionado por la Plataforma de Interoperabilidad.
    *
    * @apiSuccess {Object[]} . Array que contiene la respuesta del servicio.
    * @apiSuccess {String} .estado OK si existe el operador o ERR si no existe.
@@ -291,7 +287,6 @@ module.exports = (app) => {
    *     }
    * ]
    *
-   * @apiSampleRequest https://interoperabilidad.agetic.gob.bo/fake
    */
   app.route(`${config.app.baseUrl}/v${props.datosServicio.version}/operadores`)
     .get((req, res) => {
@@ -316,8 +311,8 @@ module.exports = (app) => {
    *
    * @apiParam {String} criterio Número de identificación tributaria del operador de transporte o Nombre registrado.
    *
-   * @apiHeader {String} Authorization Token de acceso al servicio.
-   * @apiHeader {String} Authorization Token de acceso al servicio.
+   * @apiHeader {String} Authorization Token de acceso proporcionado por la Plataforma de Interoperabilidad.
+   * @apiHeader {String} Authorization Token de acceso proporcionado por la Plataforma de Interoperabilidad.
    *
    * @apiSuccess {Object[]} . Array que contiene la respuesta del servicio.
    * @apiSuccess {String} .estado OK si existe el operador o ERR si no existe.
@@ -342,7 +337,6 @@ module.exports = (app) => {
    *   }
    * ]
    *
-   * @apiSampleRequest https://interoperabilidad.agetic.gob.bo/fake
    */
 
   app.route(`${config.app.baseUrl}/v${props.datosServicio.version}/operadoresRegistro`)
@@ -370,7 +364,7 @@ module.exports = (app) => {
    * @apiParam {String} numCaboco  Número asignado en CABOCO a la empresa constructora
    * @apiParam {String} fecha  Fecha en la que la CABOCO emitio el certificado
    *
-   * @apiHeader {String} Authorization Token de acceso al servicio.
+   * @apiHeader {String} Authorization Token de acceso proporcionado por la Plataforma de Interoperabilidad.
    *
    * @apiSuccess {Object} . Objecto que contiene la respuesta del servicio.
    * @apiSuccess {String} .estado Describe el estado de la consulta. [Vigente, Caducado o Inexistente]
@@ -385,7 +379,6 @@ module.exports = (app) => {
    *     "estado": "Vigente",
    *   }
    *
-   * @apiSampleRequest https://interoperabilidad.agetic.gob.bo/fake
    */
 
   app.route(`${config.app.baseUrl}/v${props.datosServicio.version}/certificados`)

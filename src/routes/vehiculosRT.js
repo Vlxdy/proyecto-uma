@@ -20,7 +20,7 @@ module.exports = (app) => {
    * @apiParam {String} placa Número de la placa asignado por el RUAT.
    * @apiParam {Integer} numeroTarjeta Número de tarjeta de operación del operador de transporte.
    *
-   * @apiHeader {String} Authorization Token de acceso al servicio.
+   * @apiHeader {String} Authorization Token de acceso proporcionado por la Plataforma de Interoperabilidad.
    *
    * @apiSuccess {String} estado OK si existe el operador o ERR si no existe.
    * @apiSuccess {String} tipoTarjeta Categoría de la tarjeta.
@@ -38,7 +38,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'http://127.0.0.1:8081/v1/vehiculos/5675NBG/tarjetas/5398' \
+   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/vehiculos/5675NBG/tarjetas/5398' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -58,7 +58,7 @@ module.exports = (app) => {
    *     "fechaFin": "02/06/2021"
    * }
    *
-   * @apiSampleRequest https://interoperabilidad.agetic.gob.bo/fake
+   * 
    */
   app.route(`${config.app.baseUrl}/v${props.datosServicio.version}/vehiculos/:placa/tarjetas/:numeroTarjeta`)
     .get((req, res) => {
@@ -84,7 +84,7 @@ module.exports = (app) => {
    *
    * @apiParam {String} placa Número de la placa asignado por el RUAT.
    *
-   * @apiHeader {String} Authorization Token de acceso al servicio.
+   * @apiHeader {String} Authorization Token de acceso proporcionado por la Plataforma de Interoperabilidad.
    *
    * @apiSuccess {String} estado OK si existe el operador o ERR si no existe.
    * @apiSuccess {String} tipoTarjeta Categoría de la tarjeta.
@@ -103,7 +103,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'http://127.0.0.1:8081/v1/vehiculos/5675NBG/tarjetas' \
+   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/vehiculos/5675NBG/tarjetas' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -124,7 +124,7 @@ module.exports = (app) => {
    *     "estadoVehiculo": "True"
    * }
    *
-   * @apiSampleRequest https://interoperabilidad.agetic.gob.bo/fake
+   * 
    */
   app.route(`${config.app.baseUrl}/v${props.datosServicio.version}/vehiculos/:placa/tarjetas`)
     .get((req, res) => {
@@ -150,7 +150,7 @@ module.exports = (app) => {
    *
    * @apiParam {Integer} codigoVehiculo Código del vehículo del operador de transporte.
    *
-   * @apiHeader {String} Authorization Token de acceso al servicio.
+   * @apiHeader {String} Authorization Token de acceso proporcionado por la Plataforma de Interoperabilidad.
    *
    * @apiSuccess {String} estado OK si existe el operador o ERR si no existe.
    * @apiSuccess {String} numeroRegistro Número de BOTIC del operador de transporte asignado por el VMT.
@@ -166,7 +166,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'http://127.0.0.1:8081/v1/vehiculos/8544/permisos' \
+   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/vehiculos/8544/permisos' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -199,7 +199,7 @@ module.exports = (app) => {
    *     }
    * ]
    *
-   * @apiSampleRequest https://interoperabilidad.agetic.gob.bo/fake
+   * 
    */
   app.route(`${config.app.baseUrl}/v${props.datosServicio.version}/vehiculos/:codigoVehiculo/permisos`)
     .get((req, res) => {
@@ -223,7 +223,7 @@ module.exports = (app) => {
    * @apiPermission Acceso a solicitud
    * @apiVersion 1.0.0
    *
-   * @apiHeader {String} Authorization Token de acceso al servicio.
+   * @apiHeader {String} Authorization Token de acceso proporcionado por la Plataforma de Interoperabilidad.
    *
    * @apiSuccess {Object[]} . Array que contiene la respuesta del servicio.
    * @apiSuccess {String} .estado OK si existe el operador o ERR si no existe.
@@ -243,7 +243,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'http://127.0.0.1:8081/v1/vehiculos' \
+   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/vehiculos' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -282,7 +282,7 @@ module.exports = (app) => {
    *    }
    * ]
    *
-   * @apiSampleRequest https://interoperabilidad.agetic.gob.bo/fake
+   * 
    */
   app.route(`${config.app.baseUrl}/v${props.datosServicio.version}/vehiculos`)
     .get((req, res) => {
