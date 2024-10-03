@@ -75,7 +75,7 @@ module.exports = (app) => {
     });
 
   /**
-   * @api {get} <base-url>/v<version-servicio>/vehiculos/:placa/tarjetas Última tarjeta
+   * @api {get} <base-url>/v<version-servicio>/vehiculos/tarjetas/:placa Última tarjeta
    * @apiDescription Proporciona los datos de la última tarjeta de operación de un operador de transporte
    * @apiName consultarUltimaTarjeta
    * @apiGroup vehiculos
@@ -103,7 +103,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/vehiculos/5675NBG/tarjetas' \
+   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/vehiculos/tarjetas/5675NBG' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -126,16 +126,16 @@ module.exports = (app) => {
    *
    * 
    */
-  app.route(`${config.app.baseUrl}/v${props.datosServicio.version}/vehiculos/:placa/tarjetas`)
+  app.route(`${config.app.baseUrl}/v${props.datosServicio.version}/vehiculos/tarjetas/:placa`)
     .get((req, res) => {
-      logger.info(`[${config.app.baseUrl}/v${props.datosServicio.version}/vehiculos/:placa/tarjetas] Iniciando...`, req.route);
+      logger.info(`[${config.app.baseUrl}/v${props.datosServicio.version}/vehiculos/tarjetas/:placa] Iniciando...`, req.route);
       const parametrosValidados = vehiculosBL.validarParametrosUltimoVehiculo(req.params);
       vehiculosBL.consultarUltimaTarjeta(parametrosValidados, (err, respuesta) => {
         if (err) {
-          logger.error(`[${config.app.baseUrl}/v${props.datosServicio.version}/vehiculos/:placa/tarjetas] Error...`, err);
+          logger.error(`[${config.app.baseUrl}/v${props.datosServicio.version}/vehiculos/tarjetas/:placa] Error...`, err);
           return res.status(err.statusCode || 500).json(err);
         }
-        logger.info(`[${config.app.baseUrl}/v${props.datosServicio.version}/vehiculos/:placa/tarjetas] Respuesta`, respuesta);
+        logger.info(`[${config.app.baseUrl}/v${props.datosServicio.version}/vehiculos/tarjetas/:placa] Respuesta`, respuesta);
         return res.json(respuesta);
       });
     });
