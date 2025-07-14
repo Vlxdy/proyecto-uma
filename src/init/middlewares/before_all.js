@@ -5,10 +5,11 @@
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const logger = require('../../helpers/logger');
+const configs = require('../../configurations/services');
 
 module.exports = (app) => {
   // puerto
-  app.set('port', 8081);
+  app.set('port', configs.puerto);
 
   // permite recibir datos json como body
   app.use(bodyParser.json({
@@ -40,14 +41,14 @@ module.exports = (app) => {
     const chunks = [];
 
     res.write = function (chunk) {
-      chunks.push(new Buffer(chunk));
-      oldWrite.apply(res, arguments);
+      chunks.push(Buffer.from(chunk));
+      return oldWrite.apply(res, [chunk]);
     };
 
     // save last chunk, then parse body
     res.end = function (chunk) {
       if (chunk) {
-        chunks.push(new Buffer(chunk));
+        chunks.push(Buffer.from(chunk));
       }
 
       let body = Buffer.concat(chunks).toString('utf8');
@@ -68,7 +69,7 @@ module.exports = (app) => {
             statusCode: res.statusCode,
           },
         });
-      oldEnd.apply(res, arguments);
+      return oldEnd.apply(res, [chunk]);
     };
     next();
   });
