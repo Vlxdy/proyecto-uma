@@ -8,15 +8,13 @@ const logger = require('../../helpers/logger');
 const configs = require('../../configurations/services');
 
 module.exports = (app) => {
-  // puerto
+
   app.set('port', configs.puerto);
 
-  // permite recibir datos json como body
+
   app.use(bodyParser.json({
     type: 'application/json',
   }));
-
-  // para loguear el request
 
   app.use((req, res, next) => {
     logger.log('info',
@@ -45,7 +43,6 @@ module.exports = (app) => {
       return oldWrite.apply(res, [chunk]);
     };
 
-    // save last chunk, then parse body
     res.end = function (chunk) {
       if (chunk) {
         chunks.push(Buffer.from(chunk));
@@ -53,8 +50,6 @@ module.exports = (app) => {
 
       let body = Buffer.concat(chunks).toString('utf8');
 
-      // what if there is no response, or is not JSON >_<
-      /* eslint no-empty: 0 */
       try {
         body = JSON.parse(body);
       } catch (ex) {
@@ -73,20 +68,8 @@ module.exports = (app) => {
     };
     next();
   });
-  // Para activar pretty print
+
   app.set('json spaces', 2);
 
-  // adicionando soporte para cors, habilitar ips especificas no dejarlo completamente abierto, los metodos permitidos
-  /*
-  app.use(cors({
-    origin: '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    preflightContinue: false,
-    headers: 'Cache-Control, Pragma, Content-Type, Authorization, Content-Length, X-Requested-With',
-    'Access-Control-Allow-Headers': 'Authorization, Content-Type',
-  }));
-  */
-
-  // some security headers
   app.use(helmet());
 };
