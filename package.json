@@ -12,7 +12,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "lint": "eslint --ext .js src",
-    "apidoc": "./node_modules/.bin/gulp apidoc",
+    "apidoc": "npx apidoc -i src/routes -o public -t ./api_doc_template && node scripts/replacePlaceholders.js && node scripts/createInfo.js",
     "test": "NODE_ENV=test mocha test/**/*.js",
     "gen-esquema": "node tooling/generar-esquema.js",
     "deploy": "sudo mkdir /var/www/iop-servicios-uso-v1 && sudo cp -R logs /var/www/iop-servicios-uso-v1 && sudo cp -R node_modules /var/www/iop-servicios-uso-v1 && sudo cp -R src /var/www/iop-servicios-uso-v1 && sudo cp index.js /var/www/iop-servicios-uso-v1 && sudo cp package.json /var/www/iop-servicios-uso-v1"
@@ -37,15 +37,16 @@
   "dependencies": {
     "body-parser": "1.20.2",
     "consign": "0.1.6",
-    "express": "4.18.2",
-    "gul": "1.0.0",
-    "gulp": "4.0.2",
-    "gulp-api-doc": "2.2.0",
-    "gulp-file": "0.4.0",
-    "gulp-replace": "1.1.4",
-    "helmet": "7.1.0",
-    "soap": "1.0.0",
+    "express": "5.1.0",
+    "apidoc": "1.2.0",
+    "highlight.js": "11.11.1",
+    "replace-in-file": "8.3.0",
+    "fs-extra": "11.3.1",
+    "helmet": "8.1.0",
+    "soap": "1.1.1",
     "cors": "2.8.5",
-    "winston": "3.17.0"
+    "winston": "3.17.0",
+    "nodemon": "3.0.1",
+    "axios": "1.13.2"
   }
 }
