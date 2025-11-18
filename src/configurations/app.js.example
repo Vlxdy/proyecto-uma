@@ -1,5 +1,5 @@
 module.exports = {
   baseUrl: '{{ config.BASE_URL }}',
-  domain: 'pagos.agetic.gob.bo',
+  domain: 'https://interoperabilidad.agetic.gob.bo',
   institution: 'AGETIC',
 };
