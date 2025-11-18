@@ -1,0 +1,789 @@
+:root {
+
+  --meth-get: green;
+  --meth-put: #e5c500;
+  --meth-post: #4070ec;
+  --meth-delete: #ed0039;
+  --meth-patch: #3387CC;
+
+}
+/* ------------------------------------------------------------------------------------------
+ * Content
+ * ------------------------------------------------------------------------------------------ */
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('./glyphicons-halflings-regular.eot');
+  src: url('./glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+    url('./glyphicons-halflings-regular.woff') format('woff'),
+    url('./glyphicons-halflings-regular.woff2') format('woff2'),
+    url('./glyphicons-halflings-regular.ttf') format('truetype'),
+    url('./glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+}
+.nav-tabs-examples .active a{
+  background-color: #f5f5f5 !important;
+  color: #360023 !important;
+  margin: 0px 5px 2px 0px;
+}
+
+.nav-tabs-examples li a:hover {
+  background-color: #ffb3ad;
+  margin: 0px 5px 2px 0px;
+  color: #fcfcfc;
+}
+
+.btn-primary {
+  background-color: #ec6d64;
+}
+
+.btn-primary:hover {
+  background-color: #ef8277;
+  border: 1px solid #ef8277;
+}
+
+body {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  color: #360023;
+}
+
+a {
+  color: #0c0c0c;
+}
+
+body, p, a, div, th, td {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+td.code {
+  font-size: 14px;
+  font-family: "Source Code Pro", monospace;
+  font-weight: 400;
+}
+
+#content {
+  padding: 16px;
+  margin-left: 270px; /* espacio para el sidenav */
+  max-width: calc(100% - 270px);
+  box-sizing: border-box;
+}
+
+p {
+  color: #808080;
+}
+
+h1 {
+  font-family: "Source Sans Pro Semibold", sans-serif;
+  font-weight: normal;
+  font-size: 44px;
+  line-height: 50px;
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+
+h2 {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 40px;
+  margin: 0 0 20px 0;
+  padding: 0;
+}
+
+section {
+  border-top: 1px solid #ebebeb;
+  padding: 30px 0;
+}
+
+section h1 {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  padding-bottom: 14px;
+  margin: 0 0 20px 0;
+  padding: 0;
+}
+
+article {
+  padding: 14px 0 30px 0;
+}
+
+article h1 {
+  font-family: "Source Sans Pro Bold", sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 26px;
+}
+
+article h2 {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+  margin: 0 0 10px 0;
+}
+
+article h3 {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 18px;
+  margin: 0 0 10px 0;
+}
+
+article h4 {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  margin: 0 0 8px 0;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 0 20px 0;
+}
+
+th {
+  background-color: #f5f5f5;
+  text-align: left;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 700;
+  padding: 4px 8px;
+  border: #e0e0e0 1px solid;
+}
+
+td {
+  vertical-align: top;
+  padding: 10px 8px 0 8px;
+  border: #e0e0e0 1px solid;
+}
+
+#generator .content {
+  color: #b0b0b0;
+  border-top: 1px solid #ebebeb;
+  padding: 10px 0;
+}
+
+.label-optional,
+.label.optional {
+  float: right;
+  background-color: #350524; /* azul claro: legible */
+  color: #fff;
+  font-size: 0.75em;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-top: 4px; /* antes estaba vacío */
+  display: inline-block;
+}
+
+/* Para la etiqueta de obligatorio (por si el template usa 'label required' o 'label-required') */
+.label-required,
+.label.required {
+  float: right;
+  background-color: #d9534f; /* rojo */
+  color: #fff;
+  font-size: 0.75em;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-top: 4px;
+  display: inline-block;
+}
+
+/* estilos complementarios (si usas .label-ins / .label-del ya definidos) */
+.label-ins { background-color: #60d060; color:#000; }
+.label-del { background-color: #f05050; color:#000; text-decoration:line-through; }
+
+.open-left {
+  right: 0;
+  left: auto;
+}
+
+.btn-print {
+  background: #360023;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.btn-print:hover {
+  background:#575355;
+}
+
+/* ------------------------------------------------------------------------------------------
+ * apidoc - intro
+ * ------------------------------------------------------------------------------------------ */
+
+#apidoc .apidoc {
+  border-top: 1px solid #ebebeb;
+  padding: 30px 0;
+}
+
+#apidoc h1 {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  padding-bottom: 14px;
+  margin: 0 0 20px 0;
+  padding: 0;
+}
+
+#apidoc h2 {
+  font-family: "Source Sans Pro Bold", sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 26px;
+  padding-top: 14px;
+}
+
+/* ------------------------------------------------------------------------------------------
+ * pre / code
+ * ------------------------------------------------------------------------------------------ */
+/*pre code {
+  display: block;
+  background: #1e1e1e; /* gris oscuro estilo VSCode */
+/*  color: #dcdcdc; /* texto base */
+ /* padding: 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-family: "Source Code Pro", monospace;
+  font-size: 14px;
+}
+
+/* Colores de sintaxis básicos */
+/*pre code .keyword { color: #569cd6; }
+pre code .string  { color: #d69d85; }
+pre code .number  { color: #b5cea8; }
+pre code .comment { color: #6a9955; font-style: italic; }
+pre code .function { color: #dcdcaa; }
+*/
+/*pre.prettyprint {
+  width: 100%;
+  background-color: #0f0f0f;
+}
+
+code.language-text {
+  word-wrap: break-word;
+}
+
+pre.language-json {
+  overflow: auto;
+}
+
+pre.language-html {
+  margin: 0 0 20px 0;
+}*/
+
+.type {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  display: inline-block;
+  margin: 0 0 5px 0;
+  padding: 4px 5px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  background-color: #3387CC;
+  color: #ffffff;
+}
+
+pre.language-api .str {
+  color: #ffffff;
+}
+
+pre.language-api .pln,
+pre.language-api .pun {
+  color: #65B042;
+}
+
+/*pre code {
+  display: block;
+  font-size: 14px;
+  font-family: "Source Code Pro", monospace;
+  font-style: normal;
+  font-weight: 400;
+  word-wrap: normal;
+  white-space: pre;
+}*/
+
+pre code {
+  display: block;
+  padding: 12px 16px;
+  border-radius: 6px;
+  background: #2d2d2d;
+  font-family: "Source Code Pro", monospace, monospace;
+  font-size: 14px;
+  overflow-x: auto;
+  line-height: 1.5;
+}
+
+/* Colores de sintaxis (inspirado en Monokai) */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-section,
+.hljs-link {
+  color: #f92672; /* rosa/rojo */
+}
+
+.hljs-string,
+.hljs-title,
+.hljs-name,
+.hljs-type,
+.hljs-attr {
+  color: #a6e22e; /* verde */
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-subst,
+.hljs-meta,
+.hljs-number,
+.hljs-regexp,
+.hljs-variable,
+.hljs-template-variable {
+  color: #66d9ef; /* celeste */
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #75715e; /* gris verdoso */
+  font-style: italic;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #fd971f; /* naranja */
+}
+
+
+pre code.sample-request-response-json {
+  white-space: pre-wrap;
+  max-height: 500px;
+  overflow: auto;
+}
+
+/* ------------------------------------------------------------------------------------------
+ * Request method (HTTP verb)
+ * ------------------------------------------------------------------------------------------ */
+.method {
+  font-weight: 600;
+  font-size: 15px;
+  display: inline-block;
+  margin: 0 0 5px 0;
+  padding: 4px 5px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  background-color: var(--main-gray);
+  color: #f5f5f5
+}
+
+.meth-get {
+  background-color: var(--meth-get);
+}
+
+.meth-put {
+  background-color: var(--meth-put);
+}
+
+.meth-post {
+  background-color: var(--meth-post);
+}
+
+.meth-delete {
+  background-color: var(--meth-delete);
+}
+
+.meth-patch {
+  background-color: var(--meth-patch);
+}
+
+
+/* ------------------------------------------------------------------------------------------
+ * Sidenav
+ * ------------------------------------------------------------------------------------------ */
+.sidenav {
+  width: 228px;
+  margin: 0;
+  padding: 0 20px 20px 20px;
+  position: fixed;
+  top: 50px;
+  left: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #f5f5f5;
+  z-index: 10;
+}
+
+.sidenav > li > a {
+  display: block;
+  width: 192px;
+  margin: 0;
+  padding: 2px 11px;
+  border: 0;
+  border-left: transparent 4px solid;
+  border-right: transparent 4px solid;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.sidenav > li.nav-header {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.sidenav > li.nav-header > a {
+  padding: 5px 15px;
+  border: 1px solid #360023;
+  width: 190px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  background-color: #360023;
+  color: #fefefe;
+}
+
+.sidenav > li.active > a {
+    position: relative;
+    z-index: 2;
+    background-color: #ef8277;
+    color: #ffffff;
+}
+
+.sidenav > li.has-modifications a {
+  border-right: #60d060 4px solid;
+}
+
+.sidenav > li.is-new a {
+  border-left: #e5e5e5 4px solid;
+}
+
+/* ------------------------------------------------------------------------------------------
+ * Side nav search
+ * ------------------------------------------------------------------------------------------ */
+.sidenav-search {
+  width: 228px;
+  left: 0px;
+  position: fixed;
+  padding: 16px 20px 10px 20px;
+  background-color: #F5F5F5;
+  z-index: 11;
+}
+
+.sidenav-search .search {
+  height: 26px;
+}
+
+.search:focus {
+  border: #ef8277 1px solid;
+}
+
+.search-reset {
+  position: absolute;
+  display: block;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  right: 28px;
+  top: 17px;
+  background-color: #fff;
+}
+
+/* ------------------------------------------------------------------------------------------
+ * Compare
+ * ------------------------------------------------------------------------------------------ */
+
+ins {
+  background: #60d060;
+  text-decoration: none;
+  color: #000000;
+}
+
+del {
+  background: #f05050;
+  color: #000000;
+}
+
+.label-ins {
+  background-color: #60d060;
+}
+
+.label-del {
+  background-color: #f05050;
+  text-decoration: line-through;
+}
+
+pre.ins {
+  background-color: #60d060;
+}
+
+pre.del {
+  background-color: #f05050;
+  text-decoration: line-through;
+}
+
+table.ins th,
+table.ins td {
+  background-color: #60d060;
+}
+
+table.del th,
+table.del td {
+  background-color: #f05050;
+  text-decoration: line-through;
+}
+
+tr.ins td {
+  background-color: #60d060;
+}
+
+tr.del td {
+  background-color: #f05050;
+  text-decoration: line-through;
+}
+
+/* ------------------------------------------------------------------------------------------
+ * Spinner
+ * ------------------------------------------------------------------------------------------ */
+
+#loader {
+  position: absolute;
+  width: 100%;
+}
+
+#loader p {
+  padding-top: 80px;
+  margin-left: -4px;
+}
+
+.spinner {
+  margin: 200px auto;
+  width: 60px;
+  height: 60px;
+  position: relative;
+}
+
+.container1 > div, .container2 > div, .container3 > div {
+  width: 14px;
+  height: 14px;
+  background-color: #360023;
+
+  border-radius: 100%;
+  position: absolute;
+  -webkit-animation: bouncedelay 1.2s infinite ease-in-out;
+  animation: bouncedelay 1.2s infinite ease-in-out;
+  /* Prevent first frame from flickering when animation starts */
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.spinner .spinner-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.container2 {
+  -webkit-transform: rotateZ(45deg);
+  transform: rotateZ(45deg);
+}
+
+.container3 {
+  -webkit-transform: rotateZ(90deg);
+  transform: rotateZ(90deg);
+}
+
+.circle1 { top: 0; left: 0; }
+.circle2 { top: 0; right: 0; }
+.circle3 { right: 0; bottom: 0; }
+.circle4 { left: 0; bottom: 0; }
+
+.container2 .circle1 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+}
+
+.container3 .circle1 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+.container1 .circle2 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+
+.container2 .circle2 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s;
+}
+
+.container3 .circle2 {
+  -webkit-animation-delay: -0.7s;
+  animation-delay: -0.7s;
+}
+
+.container1 .circle3 {
+  -webkit-animation-delay: -0.6s;
+  animation-delay: -0.6s;
+}
+
+.container2 .circle3 {
+  -webkit-animation-delay: -0.5s;
+  animation-delay: -0.5s;
+}
+
+.container3 .circle3 {
+  -webkit-animation-delay: -0.4s;
+  animation-delay: -0.4s;
+}
+
+.container1 .circle4 {
+  -webkit-animation-delay: -0.3s;
+  animation-delay: -0.3s;
+}
+
+.container2 .circle4 {
+  -webkit-animation-delay: -0.2s;
+  animation-delay: -0.2s;
+}
+
+.container3 .circle4 {
+  -webkit-animation-delay: -0.1s;
+  animation-delay: -0.1s;
+}
+
+@-webkit-keyframes bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0.0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes bouncedelay {
+  0%, 80%, 100% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 40% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}
+
+/* ------------------------------------------------------------------------------------------
+ * Tabs
+ * ------------------------------------------------------------------------------------------ */
+ul.nav-tabs {
+  margin: 0;
+}
+
+p.deprecated span{
+  color: #ff0000;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* ------------------------------------------------------------------------------------------
+ * Print
+ * ------------------------------------------------------------------------------------------ */
+
+@media print {
+  /* Modo Ctrl+P: imprime todo normalmente */
+  @page { size: auto; margin: 12mm; }
+  #sidenav, #version, #versions, section .version, section .versions { display: none !important; }
+  #content { margin-left:0 !important; width:100% !important; max-width:100% !important; box-sizing:border-box !important; }
+  a { text-decoration:none; color:inherit; }
+  a:after { content:none !important; }
+  p { color:#000; }
+  /* Bordes de tablas en impresión (consistente con estilo apidoc) */
+  table { border-collapse: collapse; background: #fff; }
+  table, th, td { border: 1px solid #e0e0e0 !important; }
+  th { background-color: #f5f5f5 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  th, td {
+    padding: 4px 6px !important;   /* antes 6–10px */
+    line-height: 1.15 !important;  /* reduce altura */
+    vertical-align: middle !important;
+  }
+  td p, td ul, td ol, td pre { margin: 0 !important; }
+  td pre, td code {
+    font-size: 12px !important;
+    line-height: 1.2 !important;
+    padding: 4px 6px !important;
+  }
+  /* Asegurar tamaños de headings en impresión (evita warnings de Firefox) */
+  h1 { font-size: 24px; line-height: 1.2 !important; margin: 0 0 10px 0; }
+  h2 { font-size: 18px; line-height: 1.2 !important; margin: 0 0 8px 0; }
+  h3 { font-size: 16px; line-height: 1.2 !important; margin: 0 0 6px 0; }
+  h4 { font-size: 14px; margin: 0 0 4px 0; }
+  pre { background:#fff; color:#000; padding:10px; border:1px solid #808080; border-radius:6px; margin:10px 0 20px 0; }
+  .btn-print, .btn-group { display:none !important; }
+  /* Evitar cortes en bloques para Firefox/Chromium (evitar mover artículos enteros a la siguiente página) */
+  pre, table, tr, .tab-content, .tab-pane { page-break-inside: avoid; break-inside: avoid; }
+  section, h1 { page-break-after: avoid; break-after: avoid; }
+  body.printing-article article { page-break-inside: auto; break-inside: auto; }
+  /* Estilos cuando imprimimos solo un artículo en Firefox */
+  /* Ocultar todo lo ajeno y secciones no destino */
+  body.printing-article #sidenav,
+  body.printing-article #project,
+  body.printing-article #header,
+  body.printing-article #footer,
+  body.printing-article #generator,
+  body.printing-article #version,
+  body.printing-article #versions,
+  body.printing-article section .version,
+  body.printing-article section .versions { display: none !important; }
+  body.printing-article #content { margin-left:0 !important; width:100% !important; max-width:100% !important; }
+  /* Mostrar solo el contenedor del artículo y el artículo objetivo */
+  body.printing-article section { display:none !important; }
+  body.printing-article section[data-print-section="true"] { display:block !important; }
+  body.printing-article .show-api-article { display:none !important; }
+  body.printing-article .show-api-article[data-print-wrapper="true"] { display:block !important; }
+  body.printing-article article { display:none !important; }
+  body.printing-article .show-api-article[data-print-wrapper="true"] article[data-print-target="true"] { display:block !important; }
+  /* Asegurar que todo el contenido del artículo sea visible */
+  body.printing-article article[data-print-target="true"] [hidden] { display: block !important; }
+  body.printing-article article[data-print-target="true"] .hide { display: block !important; }
+  body.printing-article article[data-print-target="true"] .tab-content { display: block !important; }
+  body.printing-article article[data-print-target="true"] .tab-pane { display: block !important; opacity: 1 !important; visibility: visible !important; }
+  body.printing-article .nav-tabs-examples { display: none !important; }
+  /* Bordes y estilo tabla apidoc */
+  body.printing-article table { border-collapse: collapse; background: #fff; }
+  body.printing-article table,
+  body.printing-article th,
+  body.printing-article td { border: 1px solid #e0e0e0 !important; }
+  body.printing-article th { background-color: #f5f5f5 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  /* Tamaños y alineación para celdas (reducir alto y centrar verticalmente) */
+  body.printing-article th,
+  body.printing-article td { padding: 6px 8px !important; line-height: 1.25 !important; vertical-align: middle !important; }
+}
+
+
+.content .request-type {
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  overflow-wrap: anywhere;
+}
+
+.content .title {
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  overflow-wrap: anywhere;
+}
+
+pre, code {
+  white-space: pre-wrap !important;
+  word-break: break-all !important;
+}
+
+
