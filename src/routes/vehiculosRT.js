@@ -10,7 +10,7 @@ module.exports = (app) => {
   const { vehiculosBL } = app.bls;
 
   /**
-   * @api {get} <base-url>/v<version-servicio>/vehiculos/:placa/tarjetas/:numeroTarjeta Tarjetas
+   * @api {GET} {{domain}}{{base-url}}/v{{version-servicio}}/vehiculos/:placa/tarjetas/:numeroTarjeta Tarjetas
    * @apiDescription Proporciona los datos de los vehículos vigentes de un operador de transporte
    * @apiName consultarTarjetas
    * @apiGroup vehiculos
@@ -38,7 +38,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/vehiculos/5675NBG/tarjetas/5398' \
+   *      '{{domain}}{{base-url}}/v{{version-servicio}}/vehiculos/5675NBG/tarjetas/5398' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -75,7 +75,7 @@ module.exports = (app) => {
     });
 
   /**
-   * @api {get} <base-url>/v<version-servicio>/vehiculos/tarjetas/:placa Última tarjeta
+   * @api {GET} {{domain}}{{base-url}}/v{{version-servicio}}/vehiculos/tarjetas/:placa Última tarjeta
    * @apiDescription Proporciona los datos de la última tarjeta de operación de un operador de transporte
    * @apiName consultarUltimaTarjeta
    * @apiGroup vehiculos
@@ -103,7 +103,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/vehiculos/tarjetas/5675NBG' \
+   *      '{{domain}}{{base-url}}/v{{version-servicio}}/vehiculos/tarjetas/5675NBG' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -141,7 +141,7 @@ module.exports = (app) => {
     });
 
   /**
-   * @api {get} <base-url>/v<version-servicio>/vehiculos/:codigoVehiculo/permisos Permisos
+   * @api {GET} {{domain}}{{base-url}}/v{{version-servicio}}/vehiculos/:codigoVehiculo/permisos Permisos
    * @apiDescription Proporciona los datos de vehículos de permisos complementarios de un operador de transporte
    * @apiName consultarPermisosComplementarios
    * @apiGroup vehiculos
@@ -166,7 +166,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/vehiculos/8544/permisos' \
+   *      '{{domain}}{{base-url}}/v{{version-servicio}}/vehiculos/8544/permisos' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -216,7 +216,7 @@ module.exports = (app) => {
     });
 
   /**
-   * @api {get} <base-url>/v<version-servicio>/vehiculos Vehiculos
+   * @api {GET} {{domain}}{{base-url}}/v{{version-servicio}}/vehiculos Vehiculos
    * @apiDescription Proporciona datos de los vehículos
    * @apiName obtenerVehiculos
    * @apiGroup vehiculos
@@ -243,7 +243,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/vehiculos' \
+   *      '{{domain}}{{base-url}}/v{{version-servicio}}/vehiculos' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio

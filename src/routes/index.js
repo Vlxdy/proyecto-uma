@@ -5,7 +5,7 @@ const router = express.Router();
 
 module.exports = (app) => {
   /**
-  * @api {get} <base-url>/v<version-servicio>/estado Estado de la API REST
+  * @api {GET} {{domain}}{{base-url}}/v{{version-servicio}}/estado Estado de la API REST
   * @apiGroup Estado
   * @apiHeader {String} Authorization Token de acceso proporcionado por la Plataforma de Interoperabilidad.
   * @apiSuccess {String} estado Muestra un mensaje del estado de la aplicación
@@ -17,7 +17,7 @@ module.exports = (app) => {
   *  "estado": "El servicio de <nombre-entidad-servicio> v<version-servicio> se encuentra disponible"
   * }
   *
-  * @apiVersion 1.0.0
+  * @apiVersion 1.0.1
   */
   router.route(`/v${propiedades.datosServicio.version}/estado`)
     .get((req, res) => {
@@ -25,7 +25,7 @@ module.exports = (app) => {
     });
 
   /**
-  * @api {get} <base-url>/v<version-servicio>/despliegue Versión desplegada de la API REST
+  * @api {GET}  {{domain}}{{base-url}}/v{{version-servicio}}/despliegue Versión desplegada de la API REST
   * @apiGroup Estado
   * @apiHeader {String} Authorization Token de acceso proporcionado por la Plataforma de Interoperabilidad.
   * @apiSuccess {String} version Muestra la versión de la aplicación desplegada
@@ -34,10 +34,10 @@ module.exports = (app) => {
   * HTTP/1.1 200 OK
   *
   * {
-  *  "version": "<version-deploy>"
+  *  "version": "{{version-deploy}}"
   * }
   *
-  * @apiVersion 1.0.0
+  * @apiVersion 1.0.1
   */
   router.route(`/v${propiedades.datosServicio.version}/despliegue`)
     .get((req, res) => {

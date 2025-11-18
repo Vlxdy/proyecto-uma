@@ -10,7 +10,7 @@ module.exports = (app) => {
   const { operadoresBL } = app.bls;
 
   /**
-   * @api {get} <base-url>/v<version-servicio>/operadores/:nit/representantes?numeroRegistro=:numeroRegistro Representantes
+   * @api {GET} {{domain}}{{base-url}}/v{{version-servicio}}/operadores/:nit/representantes?numeroRegistro=:numeroRegistro Representantes
    * @apiDescription Proporciona un listado de los representantes legales de un operador de transporte
    * @apiName obtenerRepresentantes
    * @apiGroup operadores
@@ -30,7 +30,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/operadores/3457869016/representantes?numeroRegistro=1696' \
+   *      '{{domain}}{{base-url}}/v{{version-servicio}}/operadores/3457869016/representantes?numeroRegistro=1696' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -65,7 +65,7 @@ module.exports = (app) => {
     });
 
   /**
-   * @api {get} <base-url>/v<version-servicio>/operadores/:nit/capacidades?numeroRegistro=:numeroRegistro Capacidades
+   * @api {GET} {{domain}}{{base-url}}/v{{version-servicio}}/operadores/:nit/capacidades?numeroRegistro=:numeroRegistro Capacidades
    * @apiDescription Proporciona el estado de un operador de transporte
    * @apiName obtenerCapacidades
    * @apiGroup operadores
@@ -82,7 +82,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/operadores/3457869016/capacidades?numeroRegistro=1696' \
+   *      '{{domain}}{{base-url}}/v{{version-servicio}}/operadores/3457869016/capacidades?numeroRegistro=1696' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -107,7 +107,7 @@ module.exports = (app) => {
     });
 
   /**
-   * @api {get} <base-url>/v<version-servicio>/operadores/:documentoIdoneidad/permisos?pais=:pais Permisos
+   * @api {GET}  {{domain}}{{base-url}}/v{{version-servicio}}/operadores/:documentoIdoneidad/permisos?pais=:pais Permisos
    * @apiDescription Proporciona un listado de los permisos complementarios de un operador de transporte
    * @apiName obtenerPermisos
    * @apiGroup operadores
@@ -127,7 +127,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/operadores/4312/permisos?pais=4' \
+   *      '{{domain}}{{base-url}}/v{{version-servicio}}/operadores/4312/permisos?pais=4' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -168,7 +168,7 @@ module.exports = (app) => {
     });
 
   /**
-   * @api {get} <base-url>/v<version-servicio>/operadores/tramites?codigoIdentificacion=:codigoIdentificacion Trámites
+   * @api {GET} {{domain}}{{base-url}}/v{{version-servicio}}/operadores/tramites?codigoIdentificacion=:codigoIdentificacion Trámites
    * @apiDescription Proporciona datos del trámite de permiso complementario de un operador de transporte
    * @apiName obtenerTramites
    * @apiGroup operadores
@@ -193,7 +193,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/operadores/tramites?codigoIdentificacion=1474/2017' \
+   *      '{{domain}}{{base-url}}/v{{version-servicio}}/operadores/tramites?codigoIdentificacion=1474/2017' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -227,12 +227,12 @@ module.exports = (app) => {
     });
 
   /**
-   * @api {get} <base-url>/v<version-servicio>/operadores Operadores
+   * @api {GET}  {{domain}}{{base-url}}/v{{version-servicio}}/operadores Operadores
    * @apiDescription Proporciona datos de los operadores de transporte
    * @apiName obtenerOperadores
    * @apiGroup operadores
    * @apiPermission Acceso a solicitud
-   * @apiVersion 1.0.0
+   * @apiVersion 1.0.1
    *
    * @apiHeader {String} Authorization Token de acceso proporcionado por la Plataforma de Interoperabilidad.
    *
@@ -252,7 +252,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/operadores' \
+   *      '{{domain}}{{base-url}}/v{{version-servicio}}/operadores' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -302,7 +302,7 @@ module.exports = (app) => {
     });
 
   /**
-   * @api {get} <base-url>/v<version-servicio>/operadoresRegistro OperadoresRegistro
+   * @api {GET} {{domain}}{{base-url}}/v{{version-servicio}}/operadoresRegistro OperadoresRegistro
    * @apiDescription Proporciona datos de los operadores de transporte registrados
    * @apiName obtenerOperadoresRegistro
    * @apiGroup operadores
@@ -323,7 +323,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/operadoresRegistro?criterio=363356029' \
+   *      '{{domain}}{{base-url}}/v{{version-servicio}}/operadoresRegistro?criterio=363356029' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio
@@ -353,7 +353,7 @@ module.exports = (app) => {
     });
 
   /**
-   * @api {get} <base-url>/v<version-servicio>/certificados?certificado=:numCertificado&caboco=:numCaboco&fecha=:fecha Certificado caboco
+   * @api {GET} {{domain}}{{base-url}}/v{{version-servicio}}/certificados?certificado=:numCertificado&caboco=:numCaboco&fecha=:fecha Certificado caboco
    * @apiDescription Proporciona estado de los certificados de los operadores de transporte registrados
    * @apiName obtenerEstadoCertificado
    * @apiGroup operadores
@@ -371,7 +371,7 @@ module.exports = (app) => {
    *
    * @apiExample {curl} Ejemplo de consumo con curl con header de autorización
    * curl -X GET \
-   *      'https://interoperabilidad.agetic.gob.bo/fake/uso/v1/certificados?certificado=1&caboco=1&fecha=01/01/2019' \
+   *      '{{domain}}{{base-url}}/v{{version-servicio}}/certificados?certificado=1&caboco=1&fecha=01/01/2019' \
    *      -H 'Authorization: Bearer <token-de-acceso>'
    *
    * @apiSuccessExample {curl} Ejemplo de respuesta del servicio

@@ -1,7 +1,7 @@
 const logger = require('../../helpers/logger');
 
 module.exports = (app) => {
-  app.all('*', (req, res) => {
+  app.use((req, res) => {
     res.status(404).json({
       mensaje: 'La ruta o el verbo utilizado no existen.',
     });
