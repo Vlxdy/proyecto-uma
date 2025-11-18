@@ -5,7 +5,7 @@
 
 ## Requerimientos 
 
-1. Descargar nodejs (versión 18.x.x)
+1. Descargar nodejs (versión 22.x.x)
 
 ```bash
 $ sudo apt-get install curl
@@ -76,7 +76,7 @@ module.exports = {
 
 ```bash
 $ cd src/configurations
-$ cp app.js.example all.js
+$ cp app.js.example app.js
   ```
   Cambiar las configuraciones con los accesos al servicio ejemplo
 ```js
