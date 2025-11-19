@@ -5,7 +5,7 @@
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const logger = require('../../helpers/logger');
-const configs = require('../../configurations/services');
+const configs = require('../../configs/services');
 
 module.exports = (app) => {
 

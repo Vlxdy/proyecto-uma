@@ -1,6 +1,9 @@
+const xml2js = require("xml2js");
+
 module.exports.obtenerRespuesta = (result) => {
   const representantes = [];
-  const valores = result.OperadorRepresentanteBoticResult.diffgram.DocumentElement;
+  const valores =
+    result.OperadorRepresentanteBoticResult.diffgram.DocumentElement;
   let elementos = [];
   if (valores.dtTmp instanceof Array) {
     elementos = valores.dtTmp;
@@ -41,7 +44,8 @@ module.exports.obtenerRespuestaCapacidadCarga = (result) => {
 
 module.exports.obtenerRespuestaPermisosComplementarios = (result) => {
   const permisos = [];
-  const valores = result.OperadorPermisosComplementariosResult.diffgram.DocumentElement;
+  const valores =
+    result.OperadorPermisosComplementariosResult.diffgram.DocumentElement;
   let elementos = [];
   if (valores.dtTmp instanceof Array) {
     elementos = valores.dtTmp;
@@ -90,7 +94,8 @@ module.exports.obtenerRespuestaTramitePermisos = (result) => {
     tramite.tipoDocSoporte = elemento.dtTmp.tipoDocSoporte;
     tramite.numeroDocSoporte = elemento.dtTmp.numeroDocSoporte;
     tramite.fechaEmisionDocSoporte = elemento.dtTmp.fechaEmisionDocSoporte;
-    tramite.fechaExpiracionDocSoporte = elemento.dtTmp.fechaExpiracionDocSoporte;
+    tramite.fechaExpiracionDocSoporte =
+      elemento.dtTmp.fechaExpiracionDocSoporte;
     tramite.codigoIDVehiculos = elemento.dtTmp.codigoIDVehiculos;
     tramite.razonSocial = elemento.dtTmp.razonSocial;
     tramites.push(tramite);
@@ -188,7 +193,8 @@ module.exports.obtenerRespuestaVehiculoUltimaTarjeta = (result) => {
 
 module.exports.obtenerRespuestaComplementariosVehiculos = (result) => {
   const permisos = [];
-  const valores = result.ComplementariosVehiculosResult.diffgram.DocumentElement;
+  const valores =
+    result.ComplementariosVehiculosResult.diffgram.DocumentElement;
   let elementos = [];
   if (valores.dtTmp instanceof Array) {
     elementos = valores.dtTmp;
@@ -215,7 +221,8 @@ module.exports.obtenerRespuestaComplementariosVehiculos = (result) => {
 
 module.exports.obtenerRespuestaOperadoresRegistro = (result) => {
   const operadores = [];
-  const valores = result.OperadoresRegistroAgeticResult.diffgram.DocumentElement;
+  const valores =
+    result.OperadoresRegistroAgeticResult.diffgram.DocumentElement;
   let elementos = [];
   if (valores.dtTmp instanceof Array) {
     elementos = valores.dtTmp;
@@ -262,33 +269,46 @@ module.exports.obtenerRespuestaOperadores = (result) => {
   return operadores;
 };
 
-module.exports.obtenerRespuestaVehiculos = (result) => {
-  const vehiculos = [];
-  const valores = result.VehiculosAgeticResult.diffgram.DocumentElement;
-  let elementos = [];
-  if (valores.dtTmp instanceof Array) {
-    elementos = valores.dtTmp;
-  } else {
-    elementos.push(valores.dtTmp);
-  }
-  elementos.forEach((elemento) => {
-    const vehiculo = {};
-    vehiculo.estado = elemento.estado;
-    vehiculo.placa = elemento.placa;
-    vehiculo.numeroRegistro = elemento.numeroRegistro;
-    vehiculo.tipoVehiculo = elemento.tipoVehiculo;
-    vehiculo.marca = elemento.marca;
-    vehiculo.chasis = elemento.chasis;
-    vehiculo.modelo = elemento.modelo;
-    vehiculo.capacidadCarga = elemento.capacidaCarga;
-    vehiculo.tipoTransporte = elemento.tipoTransporte;
-    vehiculo.numeroEjes = elemento.numeroEjes;
-    vehiculo.numeroTarjeta = elemento.numeroTarjeta;
-    vehiculo.tipoTarjeta = elemento.tipoTarjeta;
-    vehiculo.fechaDesde = elemento.fechaDesde;
-    vehiculo.fechaHasta = elemento.fechaHasta;
-    vehiculos.push(vehiculo);
+module.exports.obtenerRespuestaVehiculos = async (xml) => {
+  const parser = new xml2js.Parser({
+    explicitArray: false,
+    ignoreAttrs: false,
+    tagNameProcessors: [
+      (name) => name.replace("diffgr:", "").replace("msdata:", ""),
+    ],
   });
+
+  const json = await parser.parseStringPromise(xml);
+
+  // Navegar al DataTable
+  const body = json["soap:Envelope"]["soap:Body"];
+  const response = body["VehiculosAgeticResponse"];
+  const result = response["VehiculosAgeticResult"];
+  const diffgram = result["diffgram"];
+  const document = diffgram["DocumentElement"];
+
+  // Extraer dtTmp (puede ser 1 o una lista)
+  let elementos = document.dtTmp;
+  if (!Array.isArray(elementos)) elementos = [elementos];
+
+  // Mapear
+  const vehiculos = elementos.map((e) => ({
+    estado: e.estado,
+    placa: e.placa,
+    numeroRegistro: e.numeroRegistro,
+    tipoVehiculo: e.tipoVehiculo,
+    marca: e.marca,
+    chasis: e.chasis,
+    modelo: e.modelo,
+    capacidadCarga: e.capacidaCarga,
+    tipoTransporte: e.tipoTransporte,
+    numeroEjes: e.numeroEjes,
+    numeroTarjeta: e.numeroTarjeta,
+    tipoTarjeta: e.tipoTarjeta,
+    fechaDesde: e.fechaDesde,
+    fechaHasta: e.fechaHasta,
+  }));
+
   return vehiculos;
 };
 
