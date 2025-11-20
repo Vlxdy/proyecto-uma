@@ -63,19 +63,23 @@ router
   .route(`/vehiculos/:placa/tarjetas/:numeroTarjeta`)
   .get(async (req, res) => {
     logger.info(`[${req.originalUrl}] Iniciando...`, req.params);
-    return Promise.resolve()
-      .then(() => {
-        parametrosValidados = vehiculosBL.validarParametrosVehiculo(req.params);
-        return vehiculosBL.consultarVehiculosVigentes(parametrosValidados);
-      })
-      .then((respuesta) => {
-        if (respuesta.statusCode === 500) {
-          return res.status(500).json({
-            error: "El servicio presenta errores o no está disponible",
-          });
-        }
-        return res.status(respuesta.statusCode).json(respuesta.data);
-      });
+    try {
+      const parametrosValidados = vehiculosBL.validarParametrosVehiculo(req.params);
+      const respuesta = await vehiculosBL.consultarVehiculosVigentes(
+        parametrosValidados
+      );
+
+      if (respuesta.statusCode === 500) {
+        return res.status(500).json({
+          error: "El servicio presenta errores o no está disponible",
+        });
+      }
+
+      return res.status(respuesta.statusCode).json(respuesta.data);
+    } catch (error) {
+      logger.error(`[${req.originalUrl}] Error`, error);
+      return res.status(500).json({ error: error.message || "Error interno" });
+    }
   });
 
 /**
@@ -133,21 +137,25 @@ router
 
 router.route(`/vehiculos/tarjetas/:placa`).get(async (req, res) => {
   logger.info(`[${req.originalUrl}] Iniciando...`, req.params);
-  return Promise.resolve()
-    .then(() => {
-      parametrosValidados = vehiculosBL.validarParametrosUltimoVehiculo(
-        req.params
-      );
-      return vehiculosBL.consultarUltimaTarjeta(parametrosValidados);
-    })
-    .then((respuesta) => {
-      if (respuesta.statusCode === 500) {
-        return res.status(500).json({
-          error: "El servicio presenta errores o no está disponible",
-        });
-      }
-      return res.status(respuesta.statusCode).json(respuesta.data);
-    });
+  try {
+    const parametrosValidados = vehiculosBL.validarParametrosUltimoVehiculo(
+      req.params
+    );
+    const respuesta = await vehiculosBL.consultarUltimaTarjeta(
+      parametrosValidados
+    );
+
+    if (respuesta.statusCode === 500) {
+      return res.status(500).json({
+        error: "El servicio presenta errores o no está disponible",
+      });
+    }
+
+    return res.status(respuesta.statusCode).json(respuesta.data);
+  } catch (error) {
+    logger.error(`[${req.originalUrl}] Error`, error);
+    return res.status(500).json({ error: error.message || "Error interno" });
+  }
 });
 
 /**
@@ -214,21 +222,25 @@ router.route(`/vehiculos/tarjetas/:placa`).get(async (req, res) => {
 
 router.route(`/vehiculos/:codigoVehiculo/permisos`).get(async (req, res) => {
   logger.info(`[${req.originalUrl}] Iniciando...`, req.params);
-  return Promise.resolve()
-    .then(() => {
-      parametrosValidados = vehiculosBL.validarParametrosPermisosVehiculo(
-        req.params
-      );
-      return vehiculosBL.consultarPermisosComplementarios(parametrosValidados);
-    })
-    .then((respuesta) => {
-      if (respuesta.statusCode === 500) {
-        return res.status(500).json({
-          error: "El servicio presenta errores o no está disponible",
-        });
-      }
-      return res.status(respuesta.statusCode).json(respuesta.data);
-    });
+  try {
+    const parametrosValidados = vehiculosBL.validarParametrosPermisosVehiculo(
+      req.params
+    );
+    const respuesta = await vehiculosBL.consultarPermisosComplementarios(
+      parametrosValidados
+    );
+
+    if (respuesta.statusCode === 500) {
+      return res.status(500).json({
+        error: "El servicio presenta errores o no está disponible",
+      });
+    }
+
+    return res.status(respuesta.statusCode).json(respuesta.data);
+  } catch (error) {
+    logger.error(`[${req.originalUrl}] Error`, error);
+    return res.status(500).json({ error: error.message || "Error interno" });
+  }
 });
 
 /**
@@ -303,16 +315,20 @@ router.route(`/vehiculos/:codigoVehiculo/permisos`).get(async (req, res) => {
 
 router.route(`/vehiculos`).get(async (req, res) => {
   logger.info(`[${req.originalUrl}] Iniciando...`, req.params);
-  return Promise.resolve()
-    .then(() => vehiculosBL.obtenerVehiculos())
-    .then((respuesta) => {
-      if (respuesta.statusCode === 500) {
-        return res.status(500).json({
-          error: "El servicio presenta errores o no está disponible",
-        });
-      }
-      return res.status(respuesta.statusCode).json(respuesta.data);
-    });
+  try {
+    const respuesta = await vehiculosBL.obtenerVehiculos();
+
+    if (respuesta.statusCode === 500) {
+      return res.status(500).json({
+        error: "El servicio presenta errores o no está disponible",
+      });
+    }
+
+    return res.status(respuesta.statusCode).json(respuesta.data);
+  } catch (error) {
+    logger.error(`[${req.originalUrl}] Error`, error);
+    return res.status(500).json({ error: error.message || "Error interno" });
+  }
 });
 
 

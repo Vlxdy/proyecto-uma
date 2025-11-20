@@ -9,11 +9,12 @@ const servicesConfig = require("../configs/services");
 // FUNCION XML BUILDER
 // ------------------------
 
-function ParametrosWS() {
+function ParametrosWS(baseUrl) {
   const self = {};
 
   // IMPORTANTE: el endpoint real NO es el WSDL
-  self.url = servicesConfig.wsdlUso.replace("?WSDL", "");
+  self.url =
+    baseUrl.replace("?WSDL", "") ?? servicesConfig.wsdlUso.replace("?WSDL", "");
 
   self.metodo = "";
   self.body = {};
@@ -54,8 +55,8 @@ function ParametrosWS() {
 }
 
 const validarParametrosVehiculo = (params) => {
-  const parametrosWS = new ParametrosWS();
-  parametrosWS.metodo = "VehiculosVigentes";
+  const parametrosWS = new ParametrosWS(servicesConfig.wsdlVehiculos);
+  parametrosWS.metodo = "VehiculoVigentes";
   if (!params.placa) {
     throw new CodeError('El parámetro "placa" es necesario');
   }
@@ -115,18 +116,22 @@ const validarParametrosPermisosVehiculo = (params) => {
 // CONSUMOS WS - PROMESAS
 // ------------------------
 
-const consultarVehiculosVigentes = (pWS) => {
+const consultarVehiculosVigentes = async (pWS) => {
   logger.info(`[consultarVehiculosVigentes] Iniciando...`);
 
   const xml = pWS.xml();
   let statusCode = 200;
-
-  return Promise.resolve()
-    .then(() => vehiculosWS.vehiculoVigentes(pWS.url, xml))
-    .then((wsResponse) => {
-      const data = parser.obtenerRespuestaVehiculosVigentes(wsResponse);
-      return { statusCode, data };
-    });
+  const wsResponse = await vehiculosWS.vehiculosVigentes(pWS.url, xml, pWS.metodo)
+  console.log("Respuesta1======>",wsResponse);
+  
+  const data = await parser.obtenerRespuestaVehiculosVigentes(wsResponse);
+  return { statusCode, data };
+  // return Promise.resolve()
+  //   .then(() => vehiculosWS.vehiculosVigentes(pWS.url, xml, pWS.metodo))
+  //   .then((wsResponse) => {
+  //     const data = parser.obtenerRespuestaVehiculosVigentes(wsResponse);
+  //     return { statusCode, data };
+  //   });
 };
 
 const consultarUltimaTarjeta = (parametrosWS) => {
@@ -137,7 +142,13 @@ const consultarUltimaTarjeta = (parametrosWS) => {
   let statusCode = 200;
 
   return Promise.resolve()
-    .then(() => vehiculosWS.vehiculoUltimaTarjeta(parametrosWS.url, xml))
+    .then(() =>
+      vehiculosWS.vehiculoUltimaTarjeta(
+        parametrosWS.url,
+        xml,
+        parametrosWS.metodo
+      )
+    )
     .then((wsResponse) => {
       const data = parser.obtenerRespuestaVehiculoUltimaTarjeta(wsResponse);
       return { statusCode, data };
@@ -151,14 +162,20 @@ const consultarPermisosComplementarios = (parametrosWS) => {
   let statusCode = 200;
 
   return Promise.resolve()
-    .then(() => vehiculosWS.complementariosVehiculos(parametrosWS.url, xml))
+    .then(() =>
+      vehiculosWS.complementariosVehiculos(
+        parametrosWS.url,
+        xml,
+        parametrosWS.metodo
+      )
+    )
     .then((wsResponse) => {
       const data = parser.obtenerRespuestaComplementariosVehiculos(wsResponse);
       return { statusCode, data };
     });
 };
 
-const obtenerVehiculos = () => {
+const obtenerVehiculos = async () => {
   logger.info(`[obtenerVehiculos] Parametros enviados`);
 
   const parametrosWS = new ParametrosWS(servicesConfig.wsdlUso);
@@ -167,12 +184,14 @@ const obtenerVehiculos = () => {
   const xml = parametrosWS.xml();
   let statusCode = 200;
 
-  return Promise.resolve()
-    .then(() => vehiculosWS.vehiculosAgetic(parametrosWS.url, xml, parametrosWS.metodo))
-    .then((wsResponse) => {
-      const data = parser.obtenerRespuestaVehiculos(wsResponse);
-      return { statusCode, data };
-    });
+  const wsResponse = await vehiculosWS.vehiculosAgetic(
+    parametrosWS.url,
+    xml,
+    parametrosWS.metodo
+  );
+
+  const data = await parser.obtenerRespuestaVehiculos(wsResponse);
+  return { statusCode, data };
 };
 
 module.exports = {

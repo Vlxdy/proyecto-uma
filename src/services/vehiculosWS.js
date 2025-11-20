@@ -1,76 +1,49 @@
-const soap = require("soap");
 const logger = require("../helpers/logger.js");
 const axios = require("axios");
 
-const opciones = { returnFault: true, forceSoap12Headers: true };
+const callSoapAction = (url, xml, metodo) => {
+  const endpoint = url.replace("?WSDL", "");
+  return axios({
+    method: "POST",
+    url: endpoint,
+    headers: {
+      "Content-Type": "text/xml; charset=utf-8",
+      SOAPAction: `http://srv.oopp.gob.bo/Public/${metodo}`,
+    },
+    timeout: 30000,
+    data: xml,
+  })
+    .then((response) => {
+      console.log("XXXXXXXXXXXXXXXXXXXX>",response);
+      
+      return response.data})
+    .catch((error) => {
+      logger.error(`[${metodo}] Error`, error);
+      console.log("Error - XXXXXXXXXXXXXXXXXXXX>",response);
 
-function logData(client) {
-  if (client !== undefined) {
-    client.on("response", (data) => {
-      logger.info("Response", data);
+      throw error;
     });
-
-    client.on("request", (data) => {
-      logger.info("Request", data);
-    });
-  } else {
-    logger.info("No se ha podido crear el cliente para consumir el servicio");
-  }
-}
-
-module.exports.vehiculoVigentes = (datosConsumo, callback) => {
-  logger.info(
-    `[${__filename}|vehiculoVigentes] Consumiendo método de vehículos vigentes de un operador de transporte...`
-  );
-  return soap.createClient(datosConsumo.url, opciones, (err, client) => {
-    logData(client);
-    if (err) {
-      return callback(err);
-    }
-    datosConsumo.header.Autenticacion.attributes = {
-      xmlns: client.wsdl.definitions.$targetNamespace,
-    };
-    client.addSoapHeader(datosConsumo.header);
-    return client.VehiculoVigentes(datosConsumo.body, callback, {
-      timeout: 5000,
-    });
-  });
 };
 
-module.exports.vehiculoUltimaTarjeta = (datosConsumo, callback) => {
+module.exports.vehiculosVigentes = (url, xml, metodo) => {
+  logger.info(
+    `[${__filename}|vehiculosVigentes] Consumiendo método de vehículos vigentes de un operador de transporte...`
+  );
+  return callSoapAction(url, xml, metodo);
+};
+
+module.exports.vehiculoUltimaTarjeta = (url, xml, metodo) => {
   logger.info(
     `[${__filename}|vehiculoUltimaTarjeta] Consumiendo método de última tarjeta de operación de un operador de transporte...`
   );
-  return soap.createClient(datosConsumo.url, opciones, (err, client) => {
-    logData(client);
-    if (err) {
-      return callback(err);
-    }
-    datosConsumo.header.Autenticacion.attributes = {
-      xmlns: client.wsdl.definitions.$targetNamespace,
-    };
-    client.addSoapHeader(datosConsumo.header);
-    return client.VehiculoUltimaTarjeta(datosConsumo.body, callback, {
-      timeout: 5000,
-    });
-  });
+  return callSoapAction(url, xml, metodo);
 };
 
-module.exports.complementariosVehiculos = (datosConsumo, callback) => {
+module.exports.complementariosVehiculos = (url, xml, metodo) => {
   logger.info(
     `[${__filename}|complementariosVehiculos] Consumiendo método de vehículos de permisos complementarios de un operador de transporte...`
   );
-  return soap.createClient(datosConsumo.url, opciones, (err, client) => {
-    logData(client);
-    if (err) {
-      return callback(err);
-    }
-    datosConsumo.header.Autenticacion.attributes = {
-      xmlns: client.wsdl.definitions.$targetNamespace,
-    };
-    client.addSoapHeader(datosConsumo.header);
-    return client.ComplementariosVehiculos(datosConsumo.body, callback);
-  });
+  return callSoapAction(url, xml, metodo);
 };
 
 module.exports.vehiculosAgetic = (url, xml, metodo) => {

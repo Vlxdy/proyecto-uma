@@ -103,47 +103,70 @@ module.exports.obtenerRespuestaTramitePermisos = (result) => {
   return tramites;
 };
 
-module.exports.obtenerRespuestaVehiculosVigentes = (result) => {
-  const vehiculos = [];
-  const valores = result.VehiculoVigentesResult.diffgram.DocumentElement;
-  let elementos = [];
-  if (valores.dtTmp instanceof Array) {
-    elementos = valores.dtTmp;
-  } else {
-    const vehiculo = {};
-    vehiculo.estado = valores.dtTmp.estado;
-    vehiculo.tipoTarjeta = valores.dtTmp.tipoTarjeta;
-    vehiculo.nit = valores.dtTmp.nit;
-    vehiculo.numeroRegistro = valores.dtTmp.numeroRegistro;
-    vehiculo.color = valores.dtTmp.color;
-    vehiculo.marca = valores.dtTmp.marca;
-    vehiculo.modelo = valores.dtTmp.modelo;
-    vehiculo.chasis = valores.dtTmp.chasis;
-    vehiculo.capacidadCarga = valores.dtTmp.capacidaCarga;
-    vehiculo.tipoTransporte = valores.dtTmp.tipoTransporte;
-    vehiculo.tipoVehiculo = valores.dtTmp.tipoVehiculo;
-    vehiculo.fechaInicio = valores.dtTmp.fechaInicio;
-    vehiculo.fechaFin = valores.dtTmp.fechaFin;
-    return vehiculo;
-  }
-  elementos.forEach((elemento) => {
-    const vehiculo = {};
-    vehiculo.estado = elemento.dtTmp.estado;
-    vehiculo.tipoTarjeta = elemento.dtTmp.tipoTarjeta;
-    vehiculo.nit = elemento.dtTmp.nit;
-    vehiculo.numeroRegistro = elemento.dtTmp.numeroRegistro;
-    vehiculo.color = elemento.dtTmp.color;
-    vehiculo.marca = elemento.dtTmp.marca;
-    vehiculo.modelo = elemento.dtTmp.modelo;
-    vehiculo.chasis = elemento.dtTmp.chasis;
-    vehiculo.capacidadCarga = elemento.dtTmp.capacidaCarga;
-    vehiculo.tipoTransporte = elemento.dtTmp.tipoTransporte;
-    vehiculo.tipoVehiculo = elemento.dtTmp.tipoVehiculo;
-    vehiculo.fechaInicio = elemento.dtTmp.fechaInicio;
-    vehiculo.fechaFin = elemento.dtTmp.fechaFin;
-    vehiculos.push(vehiculo);
+module.exports.obtenerRespuestaVehiculosVigentes = async (xml) => {
+  const parser = new xml2js.Parser({
+    explicitArray: false,
+    ignoreAttrs: false,
+    tagNameProcessors: [
+      (name) => name.replace("diffgr:", "").replace("msdata:", ""),
+    ],
   });
-  return vehiculos;
+
+  /** Limpieza de XML crudo */
+  const limpiarXml = (raw) => {
+    if (typeof raw !== "string") return "";
+    let contenido = raw.trim();
+
+    if (contenido.startsWith('"') && contenido.endsWith('"')) {
+      try {
+        contenido = JSON.parse(contenido);
+      } catch (_e) {
+        contenido = contenido.slice(1, -1).replace(/\\\"/g, '"');
+      }
+    }
+
+    return contenido;
+  };
+
+  const xmlLimpio = limpiarXml(xml);
+
+  // Convertir XML → JSON
+  const json = await parser.parseStringPromise(xmlLimpio);
+
+  // Navegar SoapEnvelope
+  const body = json?.["soap:Envelope"]?.["soap:Body"] || {};
+  const response = body?.["VehiculoVigentesResponse"] || {};
+  const result = response?.["VehiculoVigentesResult"] || {};
+  const diffgram = result?.["diffgram"] || {};
+  const document = diffgram?.["DocumentElement"] || {};
+
+  let elementos = document?.dtTmp;
+
+  if (!elementos) return [];
+
+  // Si solo viene un dtTmp
+  if (!Array.isArray(elementos)) elementos = [elementos];
+
+  // Convertir y normalizar
+
+  console.log("===============>",elementos);
+  
+
+  return elementos.map((e) => ({
+    estado: e.estado || null,
+    tipoTarjeta: e.tipoTarjeta || null,
+    nit: e.nit || null,
+    numeroRegistro: e.numeroRegistro || null,
+    color: e.color || null,
+    marca: e.marca || null,
+    modelo: e.modelo || null,
+    chasis: e.chasis || null,
+    capacidadCarga: e.capacidaCarga || null,
+    tipoTransporte: e.tipoTransporte || null,
+    tipoVehiculo: e.tipoVehiculo || null,
+    fechaInicio: e.fechaInicio || null,
+    fechaFin: e.fechaFin || null,
+  }));
 };
 
 module.exports.obtenerRespuestaVehiculoUltimaTarjeta = (result) => {
@@ -278,14 +301,33 @@ module.exports.obtenerRespuestaVehiculos = async (xml) => {
     ],
   });
 
-  const json = await parser.parseStringPromise(xml);
+  const limpiarXml = (rawXml) => {
+    if (typeof rawXml !== "string") return "";
+
+    let contenido = rawXml.trim();
+
+    // Algunas respuestas vienen envueltas entre comillas escapadas
+    // (p. ej. "<?xml version...>"). Las removemos para poder parsear.
+    if (contenido.startsWith('"') && contenido.endsWith('"')) {
+      try {
+        contenido = JSON.parse(contenido);
+      } catch (_e) {
+        contenido = contenido.slice(1, -1).replace(/\\\"/g, '"');
+      }
+    }
+
+    return contenido;
+  };
+
+  const xmlLimpio = limpiarXml(xml);
+  const json = await parser.parseStringPromise(xmlLimpio);
 
   // Navegar al DataTable
-  const body = json["soap:Envelope"]["soap:Body"];
-  const response = body["VehiculosAgeticResponse"];
-  const result = response["VehiculosAgeticResult"];
-  const diffgram = result["diffgram"];
-  const document = diffgram["DocumentElement"];
+  const body = json?.["soap:Envelope"]?.["soap:Body"] || {};
+  const response = body["VehiculosAgeticResponse"] || {};
+  const result = response["VehiculosAgeticResult"] || {};
+  const diffgram = result["diffgram"] || {};
+  const document = diffgram["DocumentElement"] || {};
 
   // Extraer dtTmp (puede ser 1 o una lista)
   let elementos = document.dtTmp;
